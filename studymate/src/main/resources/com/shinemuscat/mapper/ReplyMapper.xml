@@ -9,10 +9,10 @@
 	</insert>
 	
 	<select id="read" resultType="ReplyVO">
-		SELECT r.rno, r.bno, r.reply, u.nickname, r.replydate, r.updatedate
+	    SELECT r.rno AS rno, r.bno AS bno, r.reply AS reply, u.nickname AS nickname, r.replydate AS replyDate, r.updatedate AS updateDate
 	    FROM tbl_reply r
 	    JOIN users u ON r.user_id = u.user_id
-    	WHERE r.bno = #{bno}
+	    WHERE r.rno = #{rno}
 	</select>
 	
 	<delete id="delete">
@@ -22,15 +22,21 @@
 	
 	<update id="update">
 		update tbl_reply set reply = #{reply}, 
-		updateDate = sysdate
+		updatedate = sysdate
 		where rno = #{rno}
 	</update>
 	
 	<select id="getListWithPaging" resultType="ReplyVO">
-		SELECT r.rno, r.bno, r.reply, u.nickname, r.replydate, r.updatedate
-	    FROM tbl_reply r
-	    JOIN users u ON r.user_id = u.user_id
-    	WHERE r.bno = #{bno}
-		order by rno asc
+	SELECT 
+        r.rno AS rno, 
+        r.bno AS bno, 
+        r.reply AS reply, 
+        u.nickname AS nickname, 
+        r.replydate AS replyDate, 
+        r.updatedate AS updateDate
+    FROM tbl_reply r
+    JOIN users u ON r.user_id = u.user_id
+    WHERE r.bno = #{bno}
+    ORDER BY r.rno ASC
 	</select>
 </mapper>

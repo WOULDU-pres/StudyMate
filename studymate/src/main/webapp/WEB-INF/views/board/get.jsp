@@ -68,7 +68,7 @@
                  
                  <ul class="chat">
                     <!-- start reply -->
-                    <li class="left clearfix" data-rno='12'>
+                    <li class="left clearfix" data-rno='6'>
                        <div>
                           <div class="header">
                              <strong class="primary-font">user00</strong>
@@ -112,51 +112,6 @@ $(document).ready(function (){
    }
 })
 
-/*
-console.log("=========");
-console.log("JS TEST");
-
-var bnoValue = '<c:out value="${board.bno}"/>';
-
-replyService.add(
-   {reply:"JS TEST", replyer:"tester", bno:bnoValue}
-   ,
-   function(result) {
-      alert("RESULT: " + result);
-   }
-);
-
-replyService.getList({bno:bnoValue, page:1}, function(list) {
-   for(let i = 0, len = list.length || 0; i < len; i++) {
-      console.log(listp[i]);
-   }
-});
-
-replyService.remove(42, function(count) {
-   console.log(count);
-   
-   if(count === "success") {
-      alert("REMOVED");
-   }
-}, function(err) {
-   alert("ERROR...");
-});
-
-replyService.update({
-   rno : 41,
-   bno : bnoValue,
-   reply : "Modified Reply...."
-}, function(result) {
-   alert("수정 완료...");
-});
-
-replyService.get(41, function(data){
-   console.log(data);
-});
-*/
-
-</script>
-<script>
 $(function(){
    let operForm = $("#operForm");
    $("button[data-oper='modify']").on("click", function(e){
