@@ -5,15 +5,7 @@
 <%@include file="../includes/header.jsp" %>
 
 <!-- Written By 주현우, 최준영 -->
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Tables</h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-
+<!-- /.row -->            
 <div class="table-container">
     <c:forEach items="${list}" var="board">
         <a class='move' href='<c:out value="${board.bno}"/>'>
@@ -31,47 +23,8 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-        
-            <div class="panel-heading">Board List Page
-	            <button id='regBtn' type="button" class="btn btn-xs pull-right">
-	            Register New Board</button>
-            </div>
-            
+        <div class="panel panel-default">            
             <div class="table-container">
-                    <c:forEach items="${list}" var="board">
-                    
-    				<div class="table-container">
-						    <div class="table-cell">
-						        <div class="title">제목: Project A</div>
-						        <div class="details">작성자: User1</div>
-						        <div class="details">마감일: 2024-12-31</div>
-						        <div class="details">조회수: 123</div>
-						        <div class="details">모집구분: Frontend</div>
-						        <div class="details">기술 스택: React, CSS</div>
-						        <div class="details">모집 포지션: Developer</div>
-						    </div>
-					    </a>
-				    </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-            	
-                    <tr>
-                   		<td>
-                   			<a class='move' href='<c:out value="${board.bno}"/>'>
-								<c:out value="${board.title}"/>
-							</a>
-						</td>
-                   		<td><c:out value="${board.user_id}" /></td>
-                   		<td><c:out value="${board.deadline}" /></td>
-                   		<td><c:out value="${board.views}" /></td>
-                   		<td><c:out value="${board.recruitmenttype_id}" /></td>
-                   		<td><c:out value="${board.techstack_id}" /></td>
-                   		<td><c:out value="${board.position_id}" /></td>
-                    </tr>
-                    </c:forEach>
-                    
-                   
                 </table>
                 <div class='pull-right'>
 					<ul class="pagination">

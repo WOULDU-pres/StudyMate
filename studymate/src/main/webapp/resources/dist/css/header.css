@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* Written by 주현우 */
+
+/* 헤더 스타일 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* 왼쪽 영역 스타일 */
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2E3A59; /* 브랜드 컬러 */
+}
+
+/* 오른쪽 영역 스타일 */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.recruit-btn {
+    background-color: #68E0CF; /* SeSAC 컬러 */
+    color: white;
+}
+
+.recruit-btn:hover {
+    background-color: #56CDBA;
+}
+
+.business-btn {
+    background-color: white;
+    color: #2E3A59;
+    border: 1px solid #ddd;
+}
+
+.business-btn:hover {
+    background-color: #f7f7f7;
+}
+
+/* 알림 아이콘 스타일 */
+.notification {
+    position: relative;
+    margin-right: 20px;
+}
+
+.bell-icon {
+    font-size: 24px;
+    color: #2E3A59;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #FF6B6B;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 프로필 아이콘 스타일 */
+.profile-icon {
+    font-size: 24px;
+    color: #2E3A59;
+    cursor: pointer;
+}
