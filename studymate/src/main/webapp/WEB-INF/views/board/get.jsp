@@ -166,58 +166,50 @@ $(document).ready(function (){
    }
 
    
-   function showReplyPage(replyCnt){
-	      
-	      var endNum = Math.ceil(pageNum / 10.0) * 10;  
-	      var startNum = endNum - 9; 
-	      
-	      var prev = startNum != 1;
-	      var next = false;
-	      
-	      if(endNum * 10 >= replyCnt){
+   function showReplyPage(replyCnt) {
+	    var endNum = Math.ceil(pageNum / 10.0) * 10;
+	    var startNum = endNum - 9;
+
+	    var prev = pageNum > 1; // 이전 버튼 활성화 여부
+	    var next = pageNum * 10 < replyCnt; // 다음 버튼 활성화 여부
+
+	    if(endNum * 10 >= replyCnt){
 	        endNum = Math.ceil(replyCnt/10.0);
 	      }
-	      
-	      if(endNum * 10 < replyCnt){
-	        next = true;
-	      }
-	      
-	      var str = "<ul class='pagination pull-right'>";
-	      
-	      if(prev){
-	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
-	      }
-	      
-	      for(var i = startNum ; i <= endNum; i++){
-	        
+	    
+	    var str = `<ul class='pagination pull-right'>`;
+	    if (prev) {
+	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum - 1)+"'>Previous</a></li>";
+	    }
+
+		for(var i = startNum ; i <= endNum; i++){
 	        var active = pageNum == i? "active":"";
-	        
 	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
 	      }
-	      
-	      if(next){
-	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
-	      }
-	      
-	      str += "</ul></div>";
-	      
-	      console.log(str);
-	      
-	      replyPageFooter.html(str);
+
+	    if (next) {
+	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum + 1)+"'>Next</a></li>";
 	    }
-	     
-	    replyPageFooter.on("click","li a", function(e){
-	       e.preventDefault();
-	       console.log("page click");
-	       
-	       var targetPageNum = $(this).attr("href");
-	       
-	       console.log("targetPageNum: " + targetPageNum);
-	       
-	       pageNum = targetPageNum;
-	       
-	       showList(pageNum);
-	     });  
+
+	    str += `</ul>`;
+
+	    console.log(str);
+
+	    replyPageFooter.html(str);
+
+	    // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
+	    replyPageFooter.off("click").on("click", "li a", function (e) {
+	        e.preventDefault();
+	        console.log("page click");
+
+	        var targetPageNum = $(this).attr("href");
+	        console.log("targetPageNum: " + targetPageNum);
+
+	        pageNum = parseInt(targetPageNum, 10); // 페이지 번호를 정수로 변환
+	        showList(pageNum);
+	    });
+	}
+ 
   
    
    let modal = $(".modal");
