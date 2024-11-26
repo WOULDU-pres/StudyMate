@@ -1,3 +1,5 @@
+<!-- Written By 주현우 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,44 +11,81 @@
 
 <body>
 
-	<style>/* 업로드 결과 전체 스타일 */
+	<style>
 .uploadResult {
-	width: 60%; /* 업로드 결과 영역의 너비 설정 */
-	background-color: white; /* 배경색 흰색 */
-	border: 2px solid #B3E56A; /* 초록색 테두리 */
-	padding: 40px; /* 내부 여백 */
-	border-radius: 10px; /* 모서리 둥글게 */
-	text-align: left; /* 전체 내용을 좌측 정렬 */
+	width: 60%; 
+	background-color: white;
+	border: 2px solid #B3E56A;
+	padding: 40px;
+	border-radius: 10px; 
+	text-align: left; 
 }
 
 /* 업로드 결과의 리스트 스타일 */
 .uploadResult ul {
-	display: block; /* 리스트를 블록 형태로 표시 */
-	padding: 0; /* 기본 패딩 제거 */
-	margin: 0; /* 기본 마진 제거 */
-	overflow: hidden; /* 가로 스크롤 방지 */
-	list-style: none; /* 리스트 앞의 점 제거 */
+	display: block; 
+	padding: 0; 
+	margin: 0;
+	overflow: hidden;
+	list-style: none;
 }
 
 /* 리스트 항목(li)의 스타일 */
 .uploadResult ul li {
-	list-style: none; /* 리스트 앞의 점 제거 */
-	margin-bottom: 10px; /* 항목 간 간격 */
-	padding: 5px; /* 내부 여백 */
-	font-size: 14px; /* 글씨 크기 */
-	display: flex; /* 이미지와 텍스트를 나란히 정렬 */
-	align-items: center; /* 세로 축에서 이미지와 텍스트 정렬 */
-	justify-content: flex-start; /* 가로 축에서 좌측 정렬 */
-	text-align: left; /* 텍스트 좌측 정렬 */
+	list-style: none; 
+	margin-bottom: 5px; 
+	padding: 5px; 
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: left;
+}
+
+/* 리스트 항목의 <a> 태그 스타일 */
+.uploadResult ul li a {
+	display: flex; 
+	align-items: center; 
+	text-decoration: none; 
+	color: inherit;
 }
 
 /* 리스트 항목의 이미지 스타일 */
 .uploadResult ul li img {
-	width: 30px; /* 이미지의 가로 크기 */
-	height: 30px; /* 이미지의 세로 크기 */
-	margin-right: 10px; /* 이미지와 텍스트 간의 간격 */
-	border-radius: 5px; /* 이미지 테두리를 약간 둥글게 */
+	width: 30px; 
+	height: 30px;
+	margin-right: 10px; 
+	border-radius: 5px;
 }
+
+.uploadResult ul li div {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
+.uploadResult ul li span {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 15px; 
+    height: 15px; 
+    font-size: 13px;
+    text-align: center; 
+    border-radius: 50%; 
+    border: 2px solid #B3E56A; 
+    color: #B3E56A; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-left: 10px; 
+    transition: box-shadow 0.3s, background-color 0.3s; 
+}
+
+/* 버튼 호버 효과 */
+.uploadResult ul li span:hover {
+    box-shadow: 0 0 10px #9ACD32; /* 초록색 그림자 추가 */
+}
+
 
 </style>
 
@@ -97,11 +136,36 @@
 					} else {
 						icon = "<img src='/resources/img/image_icon.png'>"
 					}
-					str += "<li>" + icon + obj.fileName + "</li>"
+					var downloadLink = "<a href='/download?fileName=" + obj.fileName + "'>" + icon + obj.fileName + "</a>"
+					var removeButton = "<span data-file='" + obj.fileName + "' data-type='file'> x </span>";
+					str += "<li>" + "<div>" + downloadLink + removeButton + "</div>" + "</li>"
 				});
 				uploadResult.append(str);
 
 			}
+			
+			$(".uploadResult").on("click", "span", function(e){
+				
+				var targetFile = $(this).data("file");
+				var type = $(this).data("type");
+				console.log(targetFile);
+				
+				$.ajax({
+					url : '/deleteFile',
+					data: {fileName: targetFile, type:type},
+					dataType: 'text',
+					type: 'POST',
+					success: function(result){
+			            if (result === "delete") {
+			                alert("파일 삭제 성공");
+			                $(e.target).closest("li").remove(); 
+			            } else {
+			                alert("삭제 실패");
+			            }
+					}
+				
+				});
+			});
 
 			var cloneObj = $(".uploadDiv")
 
