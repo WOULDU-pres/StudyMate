@@ -1,3 +1,4 @@
+/* Written By 최준영 */
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -59,10 +60,12 @@
 <!-- 댓글 -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
+         <div class="panel panel-default">
             <div class="panel-heading">
             <i class="fa fa-comments fa-fw"></i> Reply
+            <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
          </div>
+ 
             <!-- /.panel-heading -->
             <div class="panel-body">
                  
@@ -82,7 +85,42 @@
       </div>
    </div>
 </div>
-                 
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Reply</label>
+					<input class="form-control" name="reply" value='New Reply!!!'>
+				</div>
+				<div class="form-group">
+					<label>User_id</label>
+					<input class="form-control" name='user_id' value='user_id'>
+				</div>
+				<div class="form-group">
+					<label>Reply Date</label>
+					<input class="form-control" name='replyDate' value=''>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+       			<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+				<button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+      
 <script src="/resources/js/reply.js"> </script>
 <script type="text/javascript">
 $(document).ready(function (){
@@ -109,7 +147,54 @@ $(document).ready(function (){
          }
          replyUL.html(str);
       });
-   }
+   }//end showList
+   let modal = $(".modal");
+   let modalInputReply = modal.find("input[name='reply']");
+   let modalInputUserId = modal.find("input[name='user_id']");
+   let modalInputReplyDate = modal.find("input[name='replyDate']");
+   
+   let modalModBtn = $("#modalModBtn");
+   let modalRemoveBtn = $("#modalRemoveBtn");
+   let modalRegisterBtn = $("#modalRegisterBtn");
+   
+   $("#modalCloseBtn").on("click", function(e){
+   	
+   	modal.modal('hide');
+   });
+   
+   $("#addReplyBtn").on("click", function(e){
+     
+     modal.find("input").val("");
+     modalInputReplyDate.closest("div").hide();
+     modal.find("button[id !='modalCloseBtn']").hide();
+     
+     modalRegisterBtn.show();
+     
+     $(".modal").modal("show");
+
+   })
+   
+   modalRegisterBtn.on("click", function (e) {
+		var reply = {
+			reply: modalInputReply.val(),
+			user_id: modalInputUserId.val(),
+			bno: bnoValue,
+		};
+
+		if (!reply.reply || !reply.user_id) {
+			alert("Reply and User ID are required.");
+			return;
+		}
+
+		replyService.add(reply, function (result) {
+			$(".modal-body").append("<p>Reply successfully added.</p>");
+
+			modal.find("input").val("");
+			modal.modal("hide");
+
+			showList(1);
+		});
+	});
 })
 
 $(function(){
