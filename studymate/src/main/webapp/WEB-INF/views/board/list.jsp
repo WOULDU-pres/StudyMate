@@ -52,7 +52,7 @@
 						<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 						<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 					</form>
-								</div>
+				</div>
                 
 <!-- Modal 추가 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -88,7 +88,7 @@ aria-hidden="true">
 
 <script type="text/javascript">
 
-$(function() {	<!-- $(document).ready(function())을  -->
+$(function() {
 
 	var result = '<c:out value="${result}"/>';
 	

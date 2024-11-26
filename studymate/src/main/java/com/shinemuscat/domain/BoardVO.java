@@ -25,7 +25,7 @@ public class BoardVO {
 	private int worktype_id;
 	private int duration_id;
 	private String user_id;
-	private String writer;
+//	private String writer;
 	
 	private List<BoardAttachVO> attachList;
 }
