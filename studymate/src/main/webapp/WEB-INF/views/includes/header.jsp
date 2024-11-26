@@ -30,6 +30,13 @@
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <!-- Written by 주현우 -->
+    
+    <!-- Table Container -->
+    <link rel="stylesheet" href="/resources/dist/css/table-container.css">
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
