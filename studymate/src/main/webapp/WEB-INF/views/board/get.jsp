@@ -35,8 +35,8 @@
                  </div>
 
                  <div class="form-group">
-                    <label>Writer</label> <input class="form-control" name='writer'
-                    value='<c:out value="${board.writer}"/>' readonly="readonly">
+                    <label>user_id</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.user_id}"/>' readonly="readonly">
                  </div>
                  
                  <button data-oper='modify' class="btn btn-default">Modify</button>
@@ -93,15 +93,15 @@ $(document).ready(function (){
       replyService.getList({bno:bnoValue, page: page || 1}, function(list) {
          let str = "";
          if(list == null || list.length == 0){
-            replyUL.html("");
+            replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
             return;
          }
          for(let i = 0, len = list.length || 0; i < len; i++) {
             str += `<li class='left clearfix' data-rno='\${list[i].rno}'>
                           <div>
                              <div class='header'>
-                                <strong class='primary-font'>\${list[i].replyer}</strong>
-                                <small class='pull-right text-muted'>\${list[i].replyDate}</small>
+                                <strong class='primary-font'>\${list[i].nickname}</strong>
+                                <small class='pull-right text-muted'>\${replyService.displayTime(list[i].replyDate)}</small>
                              </div>
                              <p>\${list[i].reply}</p>
                           </div>
