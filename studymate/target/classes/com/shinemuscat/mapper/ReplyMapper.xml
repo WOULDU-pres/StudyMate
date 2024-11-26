@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="read" resultType="ReplyVO">
-	    SELECT r.rno AS rno, r.bno AS bno, r.reply AS reply, u.nickname AS nickname, r.replydate AS replyDate, r.updatedate AS updateDate
+	    SELECT r.rno AS rno, r.bno AS bno, r.reply AS reply, r.user_id AS user_id, u.nickname AS nickname, r.replydate AS replyDate, r.updatedate AS updateDate
 	    FROM tbl_reply r
 	    JOIN users u ON r.user_id = u.user_id
 	    WHERE r.rno = #{rno}
