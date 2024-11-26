@@ -4,19 +4,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import com.shinemuscat.domain.Criteria;
+import com.shinemuscat.domain.ReplyPageDTO;
 import com.shinemuscat.domain.ReplyVO;
 import com.shinemuscat.mapper.ReplyMapper;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
 @AllArgsConstructor
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl implements ReplyService {
 
 	private ReplyMapper mapper;
-	
+
 	@Override
 	public int register(ReplyVO vo) {
 		log.info("register....." + vo);
@@ -45,6 +47,13 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyVO> getList(Criteria cri, Long bno) {
 		log.info("get Reply List of a Board " + bno);
 		return mapper.getListWithPaging(cri, bno);
+
 	}
 
+	@Override
+	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+		return new ReplyPageDTO(
+				mapper.getCountByBno(bno),
+				mapper.getListWithPaging(cri, bno));
+	}
 }

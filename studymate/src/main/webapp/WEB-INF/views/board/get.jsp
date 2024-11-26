@@ -67,23 +67,21 @@
          </div>
  
             <!-- /.panel-heading -->
-            <div class="panel-body">
-                 
-                 <ul class="chat">
-                    <!-- start reply -->
-                    <li class="left clearfix" data-rno='6'>
-                       <div>
-                          <div class="header">
-                             <strong class="primary-font">user00</strong>
-                             <small class="pull-right text-muted">2018-01-01 13:13</small>
-                          </div>
-                          <p>Good job!</p>
-                       </div>
-                    </li>
-            </ul>
-         </div>
-      </div>
-   </div>
+	      <div class="panel-body">        
+	      
+	        <ul class="chat">
+	
+	        </ul>
+	        <!-- ./ end ul -->
+	      </div>
+	      <!-- /.panel .chat-panel -->
+	
+		<div class="panel-footer"></div>
+	
+	
+			</div>
+	  </div>
+	  <!-- ./ end row -->
 </div>
 
 <!-- Modal -->
@@ -128,13 +126,22 @@ $(document).ready(function (){
    let replyUL = $(".chat");
    showList(1);
    function showList(page) {
-      replyService.getList({bno:bnoValue, page: page || 1}, function(list) {
-         let str = "";
-         if(list == null || list.length == 0){
-            replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
-            return;
-         }
-         for(let i = 0, len = list.length || 0; i < len; i++) {
+      replyService.getList({bno:bnoValue, page: page || 1}, function(replyCnt, list) {
+    	  console.log("replyCnt: ", replyCnt);
+	 	  if(page == -1){
+	 	      pageNum = Math.ceil(replyCnt/10.0);
+	 	      showList(pageNum);
+	 	      return;
+	 	    }
+	 	 if (list == null || list.length === 0) {
+	            replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
+	            replyPageFooter.html(""); // 페이지네이션 초기화
+	            return;
+	        }
+	 	 
+	 	  let str = "";
+         
+	 	 for (let i = 0; i < list.length; i++) {
             str += `<li class='left clearfix' data-rno='\${list[i].rno}'>
                           <div>
                              <div class='header'>
@@ -146,8 +153,73 @@ $(document).ready(function (){
                        </li>`;
          }
          replyUL.html(str);
+         showReplyPage(replyCnt);
       });
    }//end showList
+   
+   var pageNum = 1;
+   var replyPageFooter = $(".panel-footer");
+   if (replyPageFooter.length === 0) {
+       console.error("replyPageFooter 컨테이너를 찾을 수 없습니다.");
+   } else {
+       console.log("replyPageFooter 컨테이너 확인:", replyPageFooter);
+   }
+
+   
+   function showReplyPage(replyCnt){
+	      
+	      var endNum = Math.ceil(pageNum / 10.0) * 10;  
+	      var startNum = endNum - 9; 
+	      
+	      var prev = startNum != 1;
+	      var next = false;
+	      
+	      if(endNum * 10 >= replyCnt){
+	        endNum = Math.ceil(replyCnt/10.0);
+	      }
+	      
+	      if(endNum * 10 < replyCnt){
+	        next = true;
+	      }
+	      
+	      var str = "<ul class='pagination pull-right'>";
+	      
+	      if(prev){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+	      }
+	      
+	      for(var i = startNum ; i <= endNum; i++){
+	        
+	        var active = pageNum == i? "active":"";
+	        
+	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+	      }
+	      
+	      if(next){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+	      }
+	      
+	      str += "</ul></div>";
+	      
+	      console.log(str);
+	      
+	      replyPageFooter.html(str);
+	    }
+	     
+	    replyPageFooter.on("click","li a", function(e){
+	       e.preventDefault();
+	       console.log("page click");
+	       
+	       var targetPageNum = $(this).attr("href");
+	       
+	       console.log("targetPageNum: " + targetPageNum);
+	       
+	       pageNum = targetPageNum;
+	       
+	       showList(pageNum);
+	     });  
+  
+   
    let modal = $(".modal");
    let modalInputReply = modal.find("input[name='reply']");
    let modalInputUserId = modal.find("input[name='user_id']");
@@ -167,6 +239,8 @@ $(document).ready(function (){
      modal.find("input").val("");
      modalInputReplyDate.closest("div").hide();
      modal.find("button[id !='modalCloseBtn']").hide();
+     
+     modalInputUserId.removeAttr("readonly");
      
      modalRegisterBtn.show();
      
@@ -192,7 +266,8 @@ $(document).ready(function (){
 			modal.find("input").val("");
 			modal.modal("hide");
 
-			showList(1);
+			//showList(1);
+			showList(-1);
 		});
 	});
    
@@ -203,7 +278,7 @@ $(document).ready(function (){
 	        replyService.get(rno, function(reply){
 	      
 	        modalInputReply.val(reply.reply);
-	        modalInputUserId.val(reply.user_id).attr("readonly", "readonly");
+	        modalInputUserId.val(reply.user_id).attr("readonly","readonly");
 	        modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
 	        .attr("readonly","readonly");
 	        modal.data("rno", reply.rno);
@@ -224,7 +299,7 @@ $(document).ready(function (){
 	   	        
 	   	    alert(result);
 	   	    modal.modal("hide");
-	   	    showList(1);
+	   	    showList(pageNum);
 	   	    
 	   	  });
 	   	  
@@ -239,12 +314,12 @@ $(document).ready(function (){
 	   	        
 	   	      alert(result);
 	   	      modal.modal("hide");
-	   	      showList(1);
+	   	      showList(pageNum);
 	   	      
 	   	  });
 	   	  
 	   	});
-})
+});
 
 $(function(){
    let operForm = $("#operForm");
