@@ -13,6 +13,7 @@ public class ReplyVO {
 
 	private String reply;
 	private String nickname;
+	private String user_id;
 	private Date replyDate;
 	private Date updateDate;
 }
