@@ -6,6 +6,7 @@
 	<select id="getList" resultType="BoardVO">
 	<![CDATA[
 	SELECT 
+		b.bno,
         b.title,
         u.nickname,
         b.deadline,
