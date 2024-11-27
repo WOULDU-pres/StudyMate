@@ -37,12 +37,12 @@
 				
 				<div class="form-group">
 				<label>Text area</label> 
-				<textarea class="form-control" rows="3" name='content'><c:out value="${board.content }"/> </textarea> 
+				<textarea class="form-control" rows="3" name='content'><c:out value="${board.content}"/> </textarea> 
 				</div>
 				
 				<div class="form-group">
-					<label>Writer</label> <input class="form-control" name='writer'
-					value='<c:out value="${board.writer }"/>' readonly="readonly">
+					<label>User_id</label> <input class="form-control" name='user_id'
+					value='<c:out value="${board.user_id}"/>' readonly="readonly">
 				</div>
 				
 				<div class="form-group">

@@ -53,8 +53,10 @@
 
     <div class="header">
         <div class="header-left">
-            <img src="/resources/img/sesac_logo.png" alt="SeSAC Logo" class="logo">
-            <span class="brand-name">SeSAC STUDYMATE</span>
+    		<a href="/board/list" class="brand-link">
+	            <img src="/resources/img/sesac_logo.png" alt="SeSAC Logo" class="logo">
+	            <span class="brand-name">SeSAC STUDYMATE</span>
+            </a>
         </div>
         <div class="header-right">
             <button id='regBtn' class="btn recruit-btn">팀원 모집하기</button>

@@ -1,2 +1,5 @@
 /.metadata/
 /Servers
+/target/
+**/target/ 
+studymate/target/ 
