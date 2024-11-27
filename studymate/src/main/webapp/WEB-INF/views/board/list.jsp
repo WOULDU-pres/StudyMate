@@ -20,20 +20,20 @@
                   <!-- 태그 섹션 -->
                   <div class="tags-container">
                     <span class="tag blue">모집 구분:
-                      <c:out value="${board.recruitmenttype_id}" />
+                      <c:out value="${board.recruitmenttype_name}" />
                     </span>
                     <span class="tag green">모집 포지션:
-                      <c:out value="${board.position_id}" />
+                      <c:out value="${board.position_name}" />
                     </span>
                     <span class="tag">진행 방식:
-                      <c:out value="${board.worktype_id}" />
+                      <c:out value="${board.worktype_name}" />
                     </span>
                   </div>
 
                   <!-- 상세 정보 -->
                   <div class="details-container">
                     <p>작성자:
-                      <c:out value="${board.user_id}" />
+                      <c:out value="${board.nickname}" />
                     </p>
                     <p>작성일:
                       <c:out value="${board.regdate}" />
@@ -86,10 +86,10 @@
                       <!-- 기술 스택과 포지션 -->
                       <div class="tags-container">
                         <span class="tag blue">기술 스택:
-                          <c:out value="${board.techstack_id}" />
+                          <c:out value="${board.techstack_name}" />
                         </span>
                         <span class="tag green">포지션:
-                          <c:out value="${board.position_id}" />
+                          <c:out value="${board.position_name}" />
                         </span>
                       </div>
                     </div>
@@ -97,8 +97,8 @@
                     <!-- Footer -->
                     <div class="footer">
                       <div class="icon">
-                        <span>@
-                          <c:out value="${board.user_id}" />
+                        <span>
+                          <c:out value="${board.position_name}" />
                         </span>
                       </div>
                       <div class="icon">
