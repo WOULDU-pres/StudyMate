@@ -41,19 +41,6 @@ public class ReplyController {
       return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
    }
    
-   
-	/*
-	 * @GetMapping(value = "/pages/{bno}/{page}", produces =
-	 * {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	 * public ResponseEntity<List<ReplyVO>> getList(@PathVariable("page") int
-	 * page, @PathVariable("bno") Long bno) { log.info("getList.............");
-	 * 
-	 * Criteria cri = new Criteria(page, 10);
-	 * 
-	 * log.info(cri);
-	 * 
-	 * return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK); }
-	 */
 	@GetMapping(value = "/pages/{bno}/{page}", 
 			produces = { MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })

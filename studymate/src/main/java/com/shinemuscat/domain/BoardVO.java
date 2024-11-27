@@ -25,7 +25,15 @@ public class BoardVO {
 	private int worktype_id;
 	private int duration_id;
 	private String user_id;
-//	private String writer;
+	
+	private String nickname;
+	private String recruitmenttype_name;
+	private String recruitmentnumber;
+	private String position_name;
+	private String techstack_name;
+	private String contactmethod_name;
+	private String worktype_name;
+	private String duration_name;
 	
 	private List<BoardAttachVO> attachList;
 }
