@@ -1,4 +1,3 @@
-/* Written By 최준영 */
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,7 +6,7 @@
 <%@ include file="../includes/header.jsp" %>
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Board Register</h1>
+        <h1 class="page-header"><c:out value="${board.title}"/></h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -38,6 +37,51 @@
                  <div class="form-group">
                     <label>user_id</label> <input class="form-control" name='user_id'
                     value='<c:out value="${board.user_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>regdate</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.regdate}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 구분</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.recruitmenttype_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 인원</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.recruitmentnumber_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>연락 방법</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.contactmethod_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 분야</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.position_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>진행 방식</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.worktype_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.deadline}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>예상 기간</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.duration_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>사용 언어</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
                  </div>
                  
                  <button data-oper='modify' class="btn btn-default">Modify</button>

@@ -1,2 +1,9 @@
 /.metadata/
 /Servers
+/target/
+**/target/ 
+studymate/target/ 
+/.settings/
+/build/
+
+!/src/
