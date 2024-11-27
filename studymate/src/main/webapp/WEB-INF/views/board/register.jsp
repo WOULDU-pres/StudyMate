@@ -109,9 +109,7 @@
                     <!-- Deadline Field -->
                     <div class="form-group">
                         <label>Deadline</label>
-                        <select class="form-control" name="deadline">
-                            <option value="2024-12-31">2024-12-31</option>
-                        </select>
+   						<input type="date" class="form-control" name="deadline" value="2024-12-31">
                     </div>
 				
 					<div class="form-group">
