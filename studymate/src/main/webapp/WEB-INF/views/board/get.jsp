@@ -35,53 +35,58 @@
                  </div>
 
                  <div class="form-group">
-                    <label>user_id</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.user_id}"/>' readonly="readonly">
+                    <label>nickname</label> <input class="form-control" name='nickname'
+                    value='<c:out value="${board.nickname}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>regdate</label> <input class="form-control" name='user_id'
+                    <label>regdate</label> <input class="form-control" name='regdate'
                     value='<c:out value="${board.regdate}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>모집 구분</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmenttype_id}"/>' readonly="readonly">
+                    <label>모집 구분</label> <input class="form-control" name='recruitmenttype_name'
+                    value='<c:out value="${board.recruitmenttype_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>모집 인원</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmentnumber_id}"/>' readonly="readonly">
+                    <label>모집 인원</label> <input class="form-control" name='recruitmentnumber'
+                    value='<c:out value="${board.recruitmentnumber}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>연락 방법</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.contactmethod_id}"/>' readonly="readonly">
+                    <label>연락 방법</label> <input class="form-control" name='contactmethod_name'
+                    value='<c:out value="${board.contactmethod_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>모집 분야</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.position_id}"/>' readonly="readonly">
+                    <label>모집 분야</label> <input class="form-control" name='position_name'
+                    value='<c:out value="${board.position_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>진행 방식</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.worktype_id}"/>' readonly="readonly">
+                    <label>진행 방식</label> <input class="form-control" name='worktype_name'
+                    value='<c:out value="${board.worktype_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
+                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='deadline'
                     value='<c:out value="${board.deadline}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>예상 기간</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.duration_id}"/>' readonly="readonly">
+                    <label>예상 기간</label> <input class="form-control" name='duration_name'
+                    value='<c:out value="${board.duration_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>사용 언어</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
+                    <label>사용 언어</label> <input class="form-control" name='techstack_name'
+                    value='<c:out value="${board.techstack_name}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>조회수</label> <input class="form-control" name='views'
+                    value='<c:out value="${board.views}"/>' readonly="readonly">
                  </div>
                  
                  <button data-oper='modify' class="btn btn-default">Modify</button>

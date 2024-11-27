@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="/resources/dist/css/header.css">
     <!-- Table Container -->
     <link rel="stylesheet" href="/resources/dist/css/table-container.css">
+    <!-- Sidebar -->
+    <link rel="stylesheet" href="/resources/dist/css/sidebar.css">
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
