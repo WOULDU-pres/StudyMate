@@ -1,4 +1,5 @@
-// board 구현(최준영)
+/* Written By 최준영 */
+
 package com.shinemuscat.controller;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import com.shinemuscat.domain.BoardVO;
 import com.shinemuscat.service.BoardService;
+
 
 @Controller
 @Log4j

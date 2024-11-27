@@ -1,12 +1,18 @@
+/* Written By 주현우 */
+
 package com.shinemuscat.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -78,17 +84,69 @@ public class UploadController {
 
 				// check image type file
 				if (checkImageType(saveFile)) {
-					// TODO : 이모티콘 앞에 붙여서 진행
 					attachDTO.setImage(true);
-
 				}
 				;
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			} // end catch
 
-		    list.add(attachDTO);
+			list.add(attachDTO);
 		} // end for
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(String fileName) {
+
+		log.info("download file: " + fileName);
+
+		FileSystemResource resource = new FileSystemResource("C:\\sesac\\temp\\" + fileName);
+
+		if (resource.exists() == false) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		log.info("resource: " + resource);
+
+		String resourceName = resource.getFilename();
+
+		// remove UUID
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
+		HttpHeaders headers = new HttpHeaders();
+
+		try {
+			headers.add("Content-Disposition",
+					"attachment; filename=" + new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+
+	}
+
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type) {
+		log.info("deleteFile: " + fileName);
+
+		File file;
+
+		file = new File("C:\\sesac\\temp\\" + fileName);
+
+		if (file.exists()) {
+			if (file.delete()) {
+				log.info("파일 삭제 성공: " + fileName);
+				return new ResponseEntity<>("delete", HttpStatus.OK);
+			} else {
+				log.error("파일 삭제 실패: " + fileName);
+				return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		} else {
+			log.error("파일이 존재하지 않음: " + fileName);
+			return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+		}
 	}
 }

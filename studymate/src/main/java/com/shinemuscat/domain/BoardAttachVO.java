@@ -4,12 +4,11 @@ package com.shinemuscat.domain;
 import lombok.Data;
 
 @Data
-public class AttachFileDTO {
-	
+public class BoardAttachVO {
 	private String fileName;
-	private String uploadPath;
+	private String fileType;
 	private	String uuid;
-	private boolean image;
+	private String uploadPath;
+	
+	private Long bno;
 }
-
-

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/* Written by 주현우 */
+
+/* 전체 사이드바 스타일 */
+.sidebar {
+    width: 300px;
+    height: 100vh;
+    background-color: #F8F9FA; /* 밝은 배경 */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 오른쪽 그림자 */
+    border-radius: 20px; /* 둥근 모서리 */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* 헤더 스타일 */
+.sidebar-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2E3A59; /* 브랜드 컬러 */
+}
+
+/* 검색창 스타일 */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #fff;
+    padding: 5px 10px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.search-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* 메뉴 스타일 */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #2E3A59;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.sidebar-menu a:hover {
+    color: #68E0CF; /* 포커스 색상 */
+}

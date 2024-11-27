@@ -3,50 +3,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../includes/header.jsp" %>
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Tables</h1>
-    </div>
-    <!-- /.col-lg-12 -->
+
+<!-- Written By 주현우, 최준영 -->
+<!-- /.row -->            
+<div class="table-container">
+    <c:forEach items="${list}" var="board">
+        <a class='move' href='<c:out value="${board.bno}"/>'>
+	        <div class="table-cell">
+	            <div class="title"><c:out value="${board.title}" /></div>
+	            <div class="details">작성자: <c:out value="${board.user_id}" /></div>
+	            <div class="details">마감일: <c:out value="${board.deadline}" /></div>
+	            <div class="details">조회수: <c:out value="${board.views}" /></div>
+	            <div class="details">모집구분: <c:out value="${board.recruitmenttype_id}" /></div>
+	            <div class="details">기술 스택: <c:out value="${board.techstack_id}" /></div>
+	            <div class="details">모집 포지션: <c:out value="${board.position_id}" /></div>
+	        </div>
+        </a>
+    </c:forEach>
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">Board List Page
-            <button id='regBtn' type="button" class="btn btn-xs pull-right">
-            Register New Board</button>
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                            <th>수정일</th>
-                        </tr>
-                    </thead>
-                    <c:forEach items="${list}" var="board">
-                    <tr>
-                    	<td><c:out value="${board.bno}" /></td>
-                    	<td><a href='/board/get?bno=<c:out value="${board.bno}"/>'>
-                    	<c:out value="${board.title}" /></a></td>
-                    	<td>
-							<a class='move' href='<c:out value="${board.bno}"/>'>
-								<c:out value="${board.title}" /></a>
-						</td>
-                    	<td><c:out value="${board.user_id}" /></td>
-                    	<td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	value="${board.regdate}" /></td>
-                    	<td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	value="${board.updateDate}" /></td>
-                    </tr>
-                    </c:forEach>
-                    
-                   
+        <div class="panel panel-default">            
+            <div class="table-container">
                 </table>
                 <div class='pull-right'>
 					<ul class="pagination">

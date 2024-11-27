@@ -1,3 +1,5 @@
+/* Written By 최준영 */
+
 package com.shinemuscat.domain;
 
 import java.util.Date;

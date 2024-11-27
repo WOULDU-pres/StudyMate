@@ -1,6 +1,9 @@
+/* Written By 주현우, 최준영 */
+
 package com.shinemuscat.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -22,4 +25,7 @@ public class BoardVO {
 	private int worktype_id;
 	private int duration_id;
 	private String user_id;
+	private String writer;
+	
+	private List<BoardAttachVO> attachList;
 }
