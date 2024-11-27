@@ -28,30 +28,40 @@
 	
 	<select id="getListWithPaging" resultType="ReplyVO">
 	<![CDATA[
-	SELECT 
-	    r.rno AS rno, 
-	    r.bno AS bno, 
-	    r.reply AS reply, 
-	    r.nickname AS nickname, 
-	    r.replydate AS replyDate, 
-	    r.updatedate AS updateDate
-	FROM (
-	    SELECT /*+ INDEX(tbl_reply idx_reply) */ 
-	        rownum rn, 
-	        r.rno, 
-	        r.bno, 
-	        r.reply, 
-	        u.nickname, 
-	        r.replydate, 
-	        r.updatedate
-	    FROM tbl_reply r
-	    JOIN users u ON r.user_id = u.user_id
-	    WHERE r.bno = #{bno}
-	      AND r.rno > 0
-	      AND rownum <= #{cri.pageNum} * #{cri.amount}
-	) r
-	WHERE r.rn > (#{cri.pageNum} - 1) * #{cri.amount}
-	ORDER BY r.rno ASC
+SELECT 
+    r.rno AS rno, 
+    r.bno AS bno, 
+    r.reply AS reply, 
+    r.nickname AS nickname, 
+    r.replydate AS replyDate, 
+    r.updatedate AS updateDate
+FROM (
+    SELECT 
+        rownum rn, 
+        rno, 
+        bno, 
+        reply, 
+        nickname, 
+        replydate, 
+        updatedate
+    FROM (
+        SELECT 
+            r.rno, 
+            r.bno, 
+            r.reply, 
+            u.nickname, 
+            r.replydate, 
+            r.updatedate
+        FROM tbl_reply r
+        JOIN users u ON r.user_id = u.user_id
+        WHERE r.bno = #{bno}
+        ORDER BY r.updatedate DESC
+    ) sorted
+    WHERE rownum <= #{cri.pageNum} * #{cri.amount}
+) r
+WHERE r.rn > (#{cri.pageNum} - 1) * #{cri.amount}
+ORDER BY r.updatedate DESC
+
 	]]>
 	</select>
 	

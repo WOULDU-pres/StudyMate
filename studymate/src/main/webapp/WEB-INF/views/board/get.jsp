@@ -257,8 +257,8 @@ $(document).ready(function (){
 			modal.find("input").val("");
 			modal.modal("hide");
 
-			//showList(1);
-			showList(-1);
+			pageNum = 1;
+			showList(pageNum);
 		});
 	});
    
