@@ -36,8 +36,10 @@
     <!-- Written by 주현우 -->
     <!-- Header -->
     <link rel="stylesheet" href="/resources/dist/css/header.css">
+    
     <!-- Table Container -->
     <link rel="stylesheet" href="/resources/dist/css/table-container.css">
+    
     <!-- Sidebar -->
     <link rel="stylesheet" href="/resources/dist/css/sidebar.css">
     
