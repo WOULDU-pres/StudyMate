@@ -5,8 +5,19 @@
 	
 	<select id="getList" resultType="BoardVO">
 	<![CDATA[
-	select * from tbl_board where bno > 0
-	order by bno
+	SELECT 
+        b.title,
+        u.nickname,
+        b.deadline,
+        b.views,
+        r.recruitmenttype_name AS recruitmenttype_name,
+        t.techstack_name AS techstack_name,
+        p.position_name AS position_name
+    FROM tbl_board b
+    LEFT JOIN recruitment_type r ON b.recruitmenttype_id = r.recruitmenttype_id
+    LEFT JOIN techstack t ON b.techstack_id = t.techstack_id
+    LEFT JOIN position p ON b.position_id = p.position_id
+    LEFT JOIN users u ON b.user_id = u.user_id
 	]]>
 	</select>
 	

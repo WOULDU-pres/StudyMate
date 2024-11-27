@@ -11,12 +11,12 @@
         <a class='move' href='<c:out value="${board.bno}"/>'>
 	        <div class="table-cell">
 	            <div class="title"><c:out value="${board.title}" /></div>
-	            <div class="details">작성자: <c:out value="${board.user_id}" /></div>
+	            <div class="details">작성자: <c:out value="${board.nickname}" /></div>
 	            <div class="details">마감일: <c:out value="${board.deadline}" /></div>
 	            <div class="details">조회수: <c:out value="${board.views}" /></div>
-	            <div class="details">모집구분: <c:out value="${board.recruitmenttype_id}" /></div>
-	            <div class="details">기술 스택: <c:out value="${board.techstack_id}" /></div>
-	            <div class="details">모집 포지션: <c:out value="${board.position_id}" /></div>
+	            <div class="details">모집구분: <c:out value="${board.recruitmenttype_name}" /></div>
+	            <div class="details">기술 스택: <c:out value="${board.techstack_name}" /></div>
+	            <div class="details">모집 포지션: <c:out value="${board.position_name}" /></div>
 	        </div>
         </a>
     </c:forEach>
