@@ -109,4 +109,133 @@ textarea.form-control {
 .btn:hover {
     opacity: 0.9;
 }
+.reply-header {
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center; /* 세로 축 가운데 정렬 */
+    margin-bottom: 20px;
+}
+.reply-title{
+   font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
 
+/* New Reply 버튼 스타일 (선택사항) */
+.reply-header .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 50px;
+    background-color: #007bff;
+    color: #fff; 
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    
+}
+
+.reply-header .btn:hover {
+    opacity: 0.9;
+}
+
+/* 댓글 */
+/* Modal 스타일 */
+.modal-content {
+   max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.close {
+    font-size: 1.5rem;
+    color: #333;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.modal-footer button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 50px; /* 버튼을 둥글게 만듦 */
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-footer .btn-warning {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+.modal-footer .btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-footer button:hover {
+    opacity: 0.8;
+}
+
+/* 입력 필드 내 텍스트 박스 스타일 */
+.modal-body .form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+/* 반응형 디자인: 모바일에서 더 나은 사용자 경험 제공 */
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: 90%;
+        margin: 10% auto;
+    }
+
+    .modal-header {
+        font-size: 16px;
+    }
+
+    .form-control {
+        font-size: 12px;
+    }
+
+    .modal-footer button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

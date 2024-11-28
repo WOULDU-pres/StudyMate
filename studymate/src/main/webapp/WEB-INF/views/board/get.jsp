@@ -4,43 +4,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ include file="../includes/header.jsp" %>
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header"><c:out value="${board.title}"/></h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/register.css">
 <!-- /.row -->
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">Board Read Page</div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
+<div class="form-container">
+    <h1 class="form-title">게시글</h1>
                  
                  <div class="form-group">
-                    <label>Bno</label> <input class="form-control" name='bno'
+                    <label>게시글 번호</label> <input class="form-control" name='bno'
                     value='<c:out value="${board.bno}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>Title</label> <input class="form-control" name='title'
+                    <label>제목</label> <input class="form-control" name='title'
                     value='<c:out value="${board.title}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>Text area</label> 
+                    <label>내용</label> 
                     <textarea class="form-control" rows="3" name='content'
                      readonly="readonly"><c:out value="${board.content}"/></textarea>
                  </div>
 
                  <div class="form-group">
-                    <label>nickname</label> <input class="form-control" name='nickname'
+                    <label>작성자</label> <input class="form-control" name='nickname'
                     value='<c:out value="${board.nickname}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
-                    <label>regdate</label> <input class="form-control" name='regdate'
+                    <label>작성일</label> <input class="form-control" name='regdate'
                     value='<c:out value="${board.regdate}"/>' readonly="readonly">
                  </div>
                  
@@ -99,72 +90,54 @@
                   <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
                   <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
                </form>
-            </div>
-            <!-- end panel-body -->
-        </div>
-        <!-- end panel -->
-    </div>
-</div>
-<!-- /.row -->
-<!-- 댓글 -->
-<div class="row">
-    <div class="col-lg-12">
-         <div class="panel panel-default">
-            <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i> Reply
-            <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
-         </div>
- 
-            <!-- /.panel-heading -->
-	      <div class="panel-body">        
-	      
-	        <ul class="chat">
-	
-	        </ul>
-	        <!-- ./ end ul -->
-	      </div>
-	      <!-- /.panel .chat-panel -->
-	
-		<div class="panel-footer"></div>
-	
-	
-			</div>
-	  </div>
-	  <!-- ./ end row -->
+               
+               <!-- 여기는 댓글 css modal이랑 따로함 -->
+               <div class="form-container">
+                     <div class="reply-header">
+                      <h2 class = "reply-title">Reply</h2>
+                      <button id="addReplyBtn" class="btn">New Reply</button>
+                  </div>
+                    <div class="form-group">
+                       <label for="replyList">Replies</label>
+                       <ul class="chat" id="replyList">
+                       </ul>
+                      </div>
+             </div>
+
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Reply</label>
-					<input class="form-control" name="reply" value='New Reply!!!'>
-				</div>
-				<div class="form-group">
-					<label>User_id</label>
-					<input class="form-control" name='user_id' value='user_id'>
-				</div>
-				<div class="form-group">
-					<label>Reply Date</label>
-					<input class="form-control" name='replyDate' value=''>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-       			<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-				<button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Reply</label>
+               <input class="form-control" name="reply" value='New Reply!!!'>
+            </div>
+            <div class="form-group">
+               <label>User_id</label>
+               <input class="form-control" name='user_id' value='user_id'>
+            </div>
+            <div class="form-group">
+               <label>Reply Date</label>
+               <input class="form-control" name='replyDate' value=''>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+                <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+            <button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
       
@@ -176,21 +149,21 @@ $(document).ready(function (){
    showList(1);
    function showList(page) {
       replyService.getList({bno:bnoValue, page: page || 1}, function(replyCnt, list) {
-    	  console.log("replyCnt: ", replyCnt);
-	 	  if(page == -1){
-	 	      pageNum = Math.ceil(replyCnt/10.0);
-	 	      showList(pageNum);
-	 	      return;
-	 	    }
-	 	 if (list == null || list.length === 0) {
-	            replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
-	            replyPageFooter.html(""); // 페이지네이션 초기화
-	            return;
-	        }
-	 	 
-	 	  let str = "";
+         console.log("replyCnt: ", replyCnt);
+         if(page == -1){
+             pageNum = Math.ceil(replyCnt/10.0);
+             showList(pageNum);
+             return;
+           }
+        if (list == null || list.length === 0) {
+               replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
+               replyPageFooter.html(""); // 페이지네이션 초기화
+               return;
+           }
+        
+         let str = "";
          
-	 	 for (let i = 0; i < list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             str += `<li class='left clearfix' data-rno='\${list[i].rno}'>
                           <div>
                              <div class='header'>
@@ -216,48 +189,48 @@ $(document).ready(function (){
 
    
    function showReplyPage(replyCnt) {
-	    var endNum = Math.ceil(pageNum / 10.0) * 10;
-	    var startNum = endNum - 9;
+       var endNum = Math.ceil(pageNum / 10.0) * 10;
+       var startNum = endNum - 9;
 
-	    var prev = pageNum > 1; // 이전 버튼 활성화 여부
-	    var next = pageNum * 10 < replyCnt; // 다음 버튼 활성화 여부
+       var prev = pageNum > 1; // 이전 버튼 활성화 여부
+       var next = pageNum * 10 < replyCnt; // 다음 버튼 활성화 여부
 
-	    if(endNum * 10 >= replyCnt){
-	        endNum = Math.ceil(replyCnt/10.0);
-	      }
-	    
-	    var str = `<ul class='pagination pull-right'>`;
-	    if (prev) {
-	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum - 1)+"'>Previous</a></li>";
-	    }
+       if(endNum * 10 >= replyCnt){
+           endNum = Math.ceil(replyCnt/10.0);
+         }
+       
+       var str = `<ul class='pagination pull-right'>`;
+       if (prev) {
+          str+= "<li class='page-item'><a class='page-link' href='"+(pageNum - 1)+"'>Previous</a></li>";
+       }
 
-		for(var i = startNum ; i <= endNum; i++){
-	        var active = pageNum == i? "active":"";
-	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
-	      }
+      for(var i = startNum ; i <= endNum; i++){
+           var active = pageNum == i? "active":"";
+           str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+         }
 
-	    if (next) {
-	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum + 1)+"'>Next</a></li>";
-	    }
+       if (next) {
+          str+= "<li class='page-item'><a class='page-link' href='"+(pageNum + 1)+"'>Next</a></li>";
+       }
 
-	    str += `</ul>`;
+       str += `</ul>`;
 
-	    console.log(str);
+       console.log(str);
 
-	    replyPageFooter.html(str);
+       replyPageFooter.html(str);
 
-	    // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
-	    replyPageFooter.off("click").on("click", "li a", function (e) {
-	        e.preventDefault();
-	        console.log("page click");
+       // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
+       replyPageFooter.off("click").on("click", "li a", function (e) {
+           e.preventDefault();
+           console.log("page click");
 
-	        var targetPageNum = $(this).attr("href");
-	        console.log("targetPageNum: " + targetPageNum);
+           var targetPageNum = $(this).attr("href");
+           console.log("targetPageNum: " + targetPageNum);
 
-	        pageNum = parseInt(targetPageNum, 10); // 페이지 번호를 정수로 변환
-	        showList(pageNum);
-	    });
-	}
+           pageNum = parseInt(targetPageNum, 10); // 페이지 번호를 정수로 변환
+           showList(pageNum);
+       });
+   }
  
   
    
@@ -271,8 +244,8 @@ $(document).ready(function (){
    let modalRegisterBtn = $("#modalRegisterBtn");
    
    $("#modalCloseBtn").on("click", function(e){
-   	
-   	modal.modal('hide');
+      
+      modal.modal('hide');
    });
    
    $("#addReplyBtn").on("click", function(e){
@@ -290,76 +263,76 @@ $(document).ready(function (){
    })
    
    modalRegisterBtn.on("click", function (e) {
-		var reply = {
-			reply: modalInputReply.val(),
-			user_id: modalInputUserId.val(),
-			bno: bnoValue,
-		};
+      var reply = {
+         reply: modalInputReply.val(),
+         user_id: modalInputUserId.val(),
+         bno: bnoValue,
+      };
 
-		if (!reply.reply || !reply.user_id) {
-			alert("Reply and User ID are required.");
-			return;
-		}
+      if (!reply.reply || !reply.user_id) {
+         alert("Reply and User ID are required.");
+         return;
+      }
 
-		replyService.add(reply, function (result) {
-			alert(result);
+      replyService.add(reply, function (result) {
+         alert(result);
 
-			modal.find("input").val("");
-			modal.modal("hide");
+         modal.find("input").val("");
+         modal.modal("hide");
 
-			pageNum = 1;
-			showList(pageNum);
-		});
-	});
+         pageNum = 1;
+         showList(pageNum);
+      });
+   });
    
    $(".chat").on("click", "li", function(e){
-	      
-	      var rno = $(this).data("rno");
-	      
-	        replyService.get(rno, function(reply){
-	      
-	        modalInputReply.val(reply.reply);
-	        modalInputUserId.val(reply.user_id).attr("readonly","readonly");
-	        modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
-	        .attr("readonly","readonly");
-	        modal.data("rno", reply.rno);
-	        
-	        modal.find("button[id !='modalCloseBtn']").hide();
-	        modalModBtn.show();
-	        modalRemoveBtn.show();
-	        
-	        $(".modal").modal("show"); 
-	            
-	      });
-	    });
+         
+         var rno = $(this).data("rno");
+         
+           replyService.get(rno, function(reply){
+         
+           modalInputReply.val(reply.reply);
+           modalInputUserId.val(reply.user_id).attr("readonly","readonly");
+           modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
+           .attr("readonly","readonly");
+           modal.data("rno", reply.rno);
+           
+           modal.find("button[id !='modalCloseBtn']").hide();
+           modalModBtn.show();
+           modalRemoveBtn.show();
+           
+           $(".modal").modal("show"); 
+               
+         });
+       });
    modalModBtn.on("click", function(e){
- 	  
-	   	  var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-	   	  
-	   	  replyService.update(reply, function(result){
-	   	        
-	   	    alert(result);
-	   	    modal.modal("hide");
-	   	    showList(pageNum);
-	   	    
-	   	  });
-	   	  
-	   	});
+      
+           var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
+           
+           replyService.update(reply, function(result){
+                 
+             alert(result);
+             modal.modal("hide");
+             showList(pageNum);
+             
+           });
+           
+         });
 
 
-	   	modalRemoveBtn.on("click", function (e){
-	   	  
-	   	  var rno = modal.data("rno");
-	   	  
-	   	  replyService.remove(rno, function(result){
-	   	        
-	   	      alert(result);
-	   	      modal.modal("hide");
-	   	      showList(pageNum);
-	   	      
-	   	  });
-	   	  
-	   	});
+         modalRemoveBtn.on("click", function (e){
+           
+           var rno = modal.data("rno");
+           
+           replyService.remove(rno, function(result){
+                 
+               alert(result);
+               modal.modal("hide");
+               showList(pageNum);
+               
+           });
+           
+         });
 });
 
 $(function(){
