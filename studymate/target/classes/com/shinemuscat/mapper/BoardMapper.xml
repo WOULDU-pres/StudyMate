@@ -106,7 +106,7 @@
     ]]>
     </select>
 
-    <!-- 3. 게시글 등록 -->
+    <!-- 3. 게시글 등록 (안 씀) -->
     <insert id="insert">
         INSERT INTO tbl_board (bno, title, content, regdate, updatedate, views, deadline,
                                recruitmenttype_id, recruitmentnumber_id, position_id, techstack_id,
@@ -177,21 +177,25 @@
         WHERE bno = #{bno}
     </delete>
 
-    <!-- 7. 게시글 수정 -->
-    <update id="update">
-        UPDATE tbl_board
-        SET title = #{title},
-            content = #{content},
-            updateDate = SYSDATE,
-            recruitmenttype_id = #{recruitmenttype_id}, 
-            recruitmentnumber_id = #{recruitmentnumber_id}, 
-            position_id = #{position_id}, 
-            techstack_id = #{techstack_id}, 
-            contactmethod_id = #{contactmethod_id}, 
-            worktype_id = #{worktype_id}, 
-            duration_id = #{duration_id}
-        WHERE bno = #{bno}
-    </update>
+
+	<!-- 7. 게시글 수정 -->
+	<update id="update">
+	    UPDATE tbl_board
+	    SET title = #{title},
+	        content = #{content},
+	        updatedate = SYSDATE,
+	        deadline = #{deadline},
+	        recruitmenttype_id = #{recruitmenttype_id}, 
+	        recruitmentnumber_id = #{recruitmentnumber_id}, 
+	        position_id = #{position_id}, 
+	        techstack_id = #{techstack_id}, 
+	        contactmethod_id = #{contactmethod_id}, 
+	        worktype_id = #{worktype_id}, 
+	        duration_id = #{duration_id},
+	        user_id = #{user_id}
+	    WHERE bno = #{bno}
+	</update>
+
 	
     <!-- 8. 게시글 총 개수 -->
 	<select id="getTotalCount" resultType="int">

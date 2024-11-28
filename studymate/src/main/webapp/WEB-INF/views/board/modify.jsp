@@ -8,8 +8,8 @@
     <h1 class="form-title">게시글 수정</h1>
     <form role="form" action="/board/modify" method="post" id="modifyForm">
         <!-- Hidden inputs for page navigation -->
-        <input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}' />" />
-        <input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" />
+<%--         <input type="hidden" name="pageNum" value="<c:	out value='${cri.pageNum}' />" />
+        <input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" /> --%>
         <input type="hidden" name="bno" value="<c:out value='${board.bno}' />" />
 
         <!-- Form grid layout -->
@@ -85,13 +85,32 @@
         </div>
             <div class="form-group">
                 <label>모집 마감일</label>
-                <input type="date" class="form-control" name="deadline" value= value="<c:out value='${board.deadline}' />">
+			    <fmt:formatDate value="${board.deadline}" pattern="yyyy-MM-dd" var="formattedDeadline" />
+			    <input type="date" class="form-control" name="deadline" value="${formattedDeadline}">
             </div>
         </div>
             
-            
-            
-            
+        <!-- 네 번째 행: 포지션, 연락 방법 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>포지션</label>
+                <select class="form-control" name="position_id">
+                    <option value="1" <c:if test="${board.position_id == 1}">selected</c:if>>백엔드</option>
+                    <option value="2" <c:if test="${board.position_id == 2}">selected</c:if>>프론트엔드</option>
+                    <option value="3" <c:if test="${board.position_id == 3}">selected</c:if>>풀스택</option>
+                    <option value="4" <c:if test="${board.position_id == 4}">selected</c:if>>디자이너</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>연락 방법</label>
+                <select class="form-control" name="contactmethod_id">
+                    <option value="1" <c:if test="${board.contactmethod_id == 1}">selected</c:if>>이메일</option>
+                    <option value="2" <c:if test="${board.contactmethod_id == 2}">selected</c:if>>전화</option>
+                    <option value="3" <c:if test="${board.contactmethod_id == 3}">selected</c:if>>문자</option>
+                    <option value="4" <c:if test="${board.contactmethod_id == 4}">selected</c:if>>카카오톡</option>
+                </select>
+            </div>
+        </div>
             
             <div class="form-group">
                 <label for="title">제목</label>
@@ -106,22 +125,22 @@
 
             <!-- User ID -->
             <div class="form-group">
-                <label for="nickname">작성자</label>
-                <input type="text" class="form-control" id="nickname" name="nickname" value="<c:out value='${board.nickname}' />" readonly />
+                <label for="user_id">작성자</label>
+                <input type="text" class="form-control" id="user_id" name="user_id" value="<c:out value='${board.user_id}' />" readonly />
             </div>
 
             <!-- Registration Date -->
             <div class="form-group">
                 <label for="regDate">등록일</label>
-                <input type="text" class="form-control" id="regDate" name="regDate" 
-                    value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${board.regdate}' />" readonly />
+                <input type="text" class="form-control" id="regDate" 
+                    value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${board.regdate}' />" readonly disabled />
             </div>
 
             <!-- Update Date -->
             <div class="form-group">
                 <label for="updateDate">수정일</label>
-                <input type="text" class="form-control" id="updateDate" name="updateDate" 
-                    value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${board.updateDate}' />" readonly />
+                <input type="text" class="form-control" id="updateDate"
+                    value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm:ss' value='${board.updateDate}' />" readonly disabled />
             </div>
         </div>
 
@@ -153,12 +172,12 @@
          }else if(operation === 'list'){
             //move to list
             formObj.attr("action", "/board/list").attr("method","get");
-            var pageNumTag = $("input[name='pageNum']").clone();
+/*             var pageNumTag = $("input[name='pageNum']").clone();
             var amountTag = $("input[name='amount']").clone();
             
             formObj.empty();
             formObj.append(pageNumTag);
-            formObj.append(amountTag);
+            formObj.append(amountTag); */
          }
          
          formObj.submit();
