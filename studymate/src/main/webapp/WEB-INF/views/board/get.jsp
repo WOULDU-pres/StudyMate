@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%@ include file="../includes/header.jsp" %>
 <div class="row">
@@ -84,8 +85,17 @@
                     value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
                  </div>
                  
-                 <button data-oper='modify' class="btn btn-default">Modify</button>
-               <button data-oper='list' class="btn btn-info">List</button>
+				<sec:authentication property="principal" var="pinfo"/>
+				
+				        <sec:authorize access="isAuthenticated()">
+				
+				        <c:if test="${pinfo.username eq board.user_id}">
+				        
+				        <button data-oper='modify' class="btn btn-default">Modify</button>
+				        
+				        </c:if>
+				        </sec:authorize>
+                       <button data-oper='list' class="btn btn-info">List</button>
                
                <form id='operForm' action="/board/modify" method="get">
                   <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>

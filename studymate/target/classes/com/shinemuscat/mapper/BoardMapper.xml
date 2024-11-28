@@ -5,6 +5,7 @@
 <!-- Written by 주현우 -->
 <mapper namespace="com.shinemuscat.mapper.BoardMapper">
 
+	<!-- 1. 게시글 목록 조회 -->
 	<select id="getList" resultType="BoardVO">
 	<![CDATA[
 	SELECT 
@@ -23,16 +24,6 @@
     LEFT JOIN users u ON b.user_id = u.user_id
 	]]>
 	</select>
-
-    <!-- 1. 게시글 목록 조회 -->
-    <select id="getList" resultType="BoardVO">
-        <![CDATA[
-        SELECT * 
-        FROM tbl_board 
-        WHERE bno > 0
-        ORDER BY bno
-        ]]>
-    </select>
 
     <!-- 2. 페이징 처리된 게시글 목록 조회 -->
     <select id="getListWithPaging" resultType="BoardVO">

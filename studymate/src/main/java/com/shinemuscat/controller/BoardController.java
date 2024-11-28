@@ -2,6 +2,7 @@
 
 package com.shinemuscat.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,14 @@ public class BoardController {
 		}
 	}
 	
+	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
+	public void register() {
+		
+	}
+	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		try {
 			log.info("register: " + board);
@@ -48,9 +56,6 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/register")
-	public void register() {}
-	
 	@GetMapping({"/get","/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		try {
@@ -61,6 +66,7 @@ public class BoardController {
 		}
 	}
 	
+	@PreAuthorize("principal.username == #board.user_id")
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		try {
@@ -75,6 +81,7 @@ public class BoardController {
 		}
 	}
 	
+	@PreAuthorize("principal.username == #board.user_id")
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		try {
