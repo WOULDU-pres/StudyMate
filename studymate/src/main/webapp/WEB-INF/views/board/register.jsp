@@ -85,6 +85,28 @@
             </div>
         </div>
 
+        <!-- 네 번째 행: 포지션, 연락 방법 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>포지션</label>
+                <select class="form-control" name="position_id">
+                    <option value="1">백엔드</option>
+                    <option value="2">프론트엔드</option>
+                    <option value="3">풀스택</option>
+                    <option value="4">디자이너</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>연락 방법</label>
+                <select class="form-control" name="contactmethod_id">
+                    <option value="1">이메일</option>
+                    <option value="2">전화</option>
+                    <option value="3">문자</option>
+                    <option value="4">카카오톡</option>
+                </select>
+            </div>
+        </div>
+
         <!-- 제목 -->
         <div class="form-group">
             <label>제목</label>
@@ -100,7 +122,7 @@
         <!-- 작성자 -->
         <div class="form-group">
             <label>작성자</label>
-            <input class="form-control" name="writer">
+            <input class="form-control" name="user_id">
         </div>
 
         <!-- 버튼 -->

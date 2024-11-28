@@ -125,7 +125,7 @@
                                recruitmenttype_id, recruitmentnumber_id, position_id, techstack_id,
                                contactmethod_id, worktype_id, duration_id, user_id)
         VALUES (#{bno}, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, 
-                DEFAULT, #{recruitmenttype_id}, #{recruitmentnumber_id}, #{position_id}, #{techstack_id}, 
+                #{deadline}, #{recruitmenttype_id}, #{recruitmentnumber_id}, #{position_id}, #{techstack_id}, 
                 #{contactmethod_id}, #{worktype_id}, #{duration_id}, #{user_id})
     </insert>
 

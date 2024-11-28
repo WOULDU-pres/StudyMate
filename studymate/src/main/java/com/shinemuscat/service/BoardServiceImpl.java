@@ -21,6 +21,7 @@ public class BoardServiceImpl implements BoardService {
 	public void register(BoardVO board) throws Exception {
 		log.info("register....." + board);
 		mapper.insertSelectKey(board);
+//		mapper.insert(board);
 	}
 
 	@Override

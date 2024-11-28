@@ -98,7 +98,7 @@
                     <div class="footer">
                       <div class="icon">
                         <span>
-                          <c:out value="${board.position_name}" />
+                          <c:out value="${board.nickname}" />
                         </span>
                       </div>
                       <div class="icon">
