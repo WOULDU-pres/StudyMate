@@ -8,8 +8,8 @@
     <h1 class="form-title">게시글 수정</h1>
     <form role="form" action="/board/modify" method="post" id="modifyForm">
         <!-- Hidden inputs for page navigation -->
-<%--         <input type="hidden" name="pageNum" value="<c:	out value='${cri.pageNum}' />" />
-        <input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" /> --%>
+        <input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}' />" />
+        <input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" />
         <input type="hidden" name="bno" value="<c:out value='${board.bno}' />" />
 
         <!-- Form grid layout -->
@@ -172,12 +172,12 @@
          }else if(operation === 'list'){
             //move to list
             formObj.attr("action", "/board/list").attr("method","get");
-/*             var pageNumTag = $("input[name='pageNum']").clone();
+			var pageNumTag = $("input[name='pageNum']").clone();
             var amountTag = $("input[name='amount']").clone();
             
             formObj.empty();
             formObj.append(pageNumTag);
-            formObj.append(amountTag); */
+            formObj.append(amountTag);
          }
          
          formObj.submit();
