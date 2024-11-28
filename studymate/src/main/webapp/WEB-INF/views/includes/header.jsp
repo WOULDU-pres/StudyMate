@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-<!-- Written By 주현우 -->
+<!-- Written By 주현우, 김태연 -->
 <head>
 
     <meta charset="utf-8">
@@ -54,12 +54,12 @@
 </head>
 
 <body>
-
+    <!-- Written by 주현우, 김태연 -->
     <div class="header">
         <div class="header-left">
-    		<a href="/board/list" class="brand-link">
-	            <img src="/resources/img/sesac_logo.png" alt="SeSAC Logo" class="logo">
-	            <span class="brand-name">SeSAC STUDYMATE</span>
+          <a href="/board/list" class="brand-link">
+               <img src="/resources/img/sesac_logo.png" alt="SeSAC Logo" class="logo">
+               <span class="brand-name">SeSAC STUDYMATE</span>
             </a>
         </div>
         <div class="header-right">
@@ -67,24 +67,24 @@
             
             <button class="btn business-btn">비즈니스 문의</button>
             <div class="notification">
-                <i class="bell-icon">🔔</i>
+                <div class="bell-icon">🔔</div>
                 <span class="notification-badge">1</span>
             </div>
             <div class="profile">
-                <i class="profile-icon">😊</i>
+                <div class="profile-icon">😊</div>
             </div>
         </div>
     </div>
     
     <div class="sidebar">
-	    <ul class="sidebar-menu">
-	        <li><a href="/project">프로젝트</a></li>
-	        <li><a href="/study">스터디</a></li>
-	    </ul>
-	    <div class="search-bar">
-	        <input type="text" placeholder="검색..." class="search-input">
-	        <button class="search-btn">🔍</button>
-	    </div>
-	</div>
-		    <div id="page-wrapper">
+       <ul class="sidebar-menu">
+           <li><a href="/project">프로젝트</a></li>
+           <li><a href="/study">스터디</a></li>
+       </ul>
+       <div class="search-bar">
+           <input type="text" placeholder="검색..." class="search-input">
+           <button class="search-btn">🔍</button>
+       </div>
+   </div>
+          <div id="page-wrapper">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Written by 주현우 */
+/* Written by 주현우, 김태연 */
 
 /* 헤더 스타일 */
 .header {
@@ -34,7 +34,8 @@
 /* 오른쪽 영역 스타일 */
 .header-right {
     display: flex;
-    align-items: center;
+    align-items: center;       
+    font-style: normal;
 }
 
 .btn {
@@ -75,6 +76,7 @@
 
 .bell-icon {
     font-size: 24px;
+    font-style: normal;
     color: #2E3A59;
     cursor: pointer;
 }
@@ -97,7 +99,8 @@
 
 /* 프로필 아이콘 스타일 */
 .profile-icon {
-    font-size: 24px;
+    font-size: 24px;    
+    font-style: normal;
     color: #2E3A59;
     cursor: pointer;
 }
@@ -113,4 +116,3 @@
 .brand-link .brand-name {
     text-decoration: none; 
 }
-

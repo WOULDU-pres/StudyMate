@@ -1,138 +1,163 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="../includes/header.jsp"%>
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/dist/css/get.css">
 
-<%@ include file="../includes/header.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/register.css">
+<!-- Written by 김태연 -->
+
+<div class="row">
+   <div class="col-lg-12">
+      <h2 class="page-header">
+         <c:out value="${board.title}" />
+      </h2>
+      <div class="register-info" style="font-size: 11pt;">
+         <div style="font-size: 11pt; margin-bottom: 20px; overflow: hidden;">
+            <div style="float: left;">
+               작성자:
+               <c:out value="${board.nickname}" />
+               &nbsp;|&nbsp; 작성일:
+               <fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm" />
+            </div>
+            <div style="float: right;">
+               조회수:
+               <c:out value="${board.views}" />
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /.col-lg-12 -->
+</div>
 <!-- /.row -->
-<div class="form-container">
-    <h1 class="form-title">게시글</h1>
-                 
-                 <div class="form-group">
-                    <label>게시글 번호</label> <input class="form-control" name='bno'
-                    value='<c:out value="${board.bno}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>제목</label> <input class="form-control" name='title'
-                    value='<c:out value="${board.title}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>내용</label> 
-                    <textarea class="form-control" rows="3" name='content'
-                     readonly="readonly"><c:out value="${board.content}"/></textarea>
-                 </div>
+<div class="form-row">
+   <div class="col-lg-12">
+      <!-- 두 줄로 배치된 폼 -->
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 구분</label> <input class="form-control"
+                  name='recruitmenttype_name'
+                  value='<c:out value="${board.recruitmenttype_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 인원</label> <input class="form-control"
+                  name='recruitmentnumber'
+                  value='<c:out value="${board.recruitmentnumber}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
 
-                 <div class="form-group">
-                    <label>작성자</label> <input class="form-control" name='nickname'
-                    value='<c:out value="${board.nickname}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>작성일</label> <input class="form-control" name='regdate'
-                    value='<c:out value="${board.regdate}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 구분</label> <input class="form-control" name='recruitmenttype_name'
-                    value='<c:out value="${board.recruitmenttype_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 인원</label> <input class="form-control" name='recruitmentnumber'
-                    value='<c:out value="${board.recruitmentnumber}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>연락 방법</label> <input class="form-control" name='contactmethod_name'
-                    value='<c:out value="${board.contactmethod_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 분야</label> <input class="form-control" name='position_name'
-                    value='<c:out value="${board.position_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>진행 방식</label> <input class="form-control" name='worktype_name'
-                    value='<c:out value="${board.worktype_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='deadline'
-                    value='<c:out value="${board.deadline}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>예상 기간</label> <input class="form-control" name='duration_name'
-                    value='<c:out value="${board.duration_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>사용 언어</label> <input class="form-control" name='techstack_name'
-                    value='<c:out value="${board.techstack_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>조회수</label> <input class="form-control" name='views'
-                    value='<c:out value="${board.views}"/>' readonly="readonly">
-                 </div>
-                 
-                 <button data-oper='modify' class="btn btn-default">Modify</button>
-               <button data-oper='list' class="btn btn-info">List</button>
-               
-               <form id='operForm' action="/board/modify" method="get">
-                  <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>
-                  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
-                  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
-                  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-               </form>
-               
-               <!-- 여기는 댓글 css modal이랑 따로함 -->
-               <div class="form-container">
-                     <div class="reply-header">
-                      <h2 class = "reply-title">Reply</h2>
-                      <button id="addReplyBtn" class="btn">New Reply</button>
-                  </div>
-                    <div class="form-group">
-                       <label for="replyList">Replies</label>
-                       <ul class="chat" id="replyList">
-                       </ul>
-                      </div>
-             </div>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>연락 방법</label> <input class="form-control"
+                  name='contactmethod_name'
+                  value='<c:out value="${board.contactmethod_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 분야</label> <input class="form-control"
+                  name='position_name'
+                  value='<c:out value="${board.position_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
 
+      <!-- 나머지 form-group들도 동일하게 적용 -->
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>진행 방식</label> <input class="form-control"
+                  name='worktype_name'
+                  value='<c:out value="${board.worktype_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>시작 예정(모집 마감일)</label> <input class="form-control"
+                  name='deadline'
+                  value='<fmt:formatDate value="${board.deadline}" pattern="yy-MM-dd HH:mm" />'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
+
+      <!-- Textarea는 일반 텍스트로 표시 -->
+      <div class="row">
+         <div class="col-md-12">
+            <div class="form-group">
+               <h3>본문</h3>
+               <div class="form-control-static">
+                  <c:out value="${board.content}" />
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+      <!-- 버튼 -->
+      <button data-oper='modify' class="btn btn-default">수정하기</button>
+      <button data-oper='list' class="btn btn-info">목록으로</button>
+   </div>
+</div>
+
+<form id='operForm' action="/board/modify" method="get">
+   <input type='hidden' name='bno' id='bno'
+      value='<c:out value="${board.bno}"/>'> <input type='hidden'
+      name='pageNum' value='<c:out value="${cri.pageNum}"/>'> <input
+      type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+   <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
+   <input type='hidden' name='keyword'
+      value='<c:out value="${cri.keyword}"/>'>
+</form>
+<!-- /.row -->
+
+<!-- 댓글 -->
+<div class="row">
+   <ul class="chat"></ul>
+   <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">&times;</button>
             <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
          </div>
          <div class="modal-body">
             <div class="form-group">
-               <label>Reply</label>
-               <input class="form-control" name="reply" value='New Reply!!!'>
+               <label>Reply</label> <input class="form-control" name="reply"
+                  value='New Reply!!!'>
             </div>
             <div class="form-group">
-               <label>User_id</label>
-               <input class="form-control" name='user_id' value='user_id'>
+               <label>User_id</label> <input class="form-control" name='user_id'
+                  value='user_id'>
             </div>
             <div class="form-group">
-               <label>Reply Date</label>
-               <input class="form-control" name='replyDate' value=''>
+               <label>Reply Date</label> <input class="form-control"
+                  name='replyDate' value=''>
             </div>
          </div>
          <div class="modal-footer">
             <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
             <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-                <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-            <button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+            <button id='modalCloseBtn' type="button" class="btn btn-default"
+               data-dismiss="modal">Close</button>
          </div>
       </div>
       <!-- /.modal-content -->
@@ -140,7 +165,7 @@
    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-      
+
 <script src="/resources/js/reply.js"> </script>
 <script type="text/javascript">
 $(document).ready(function (){
@@ -348,5 +373,5 @@ $(function(){
    })
 })
 </script>
-        
-   <%@ include file="../includes/footer.jsp" %>
+
+<%@ include file="../includes/footer.jsp"%>
