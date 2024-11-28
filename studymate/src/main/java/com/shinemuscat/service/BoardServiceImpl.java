@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shinemuscat.domain.BoardVO;
+import com.shinemuscat.domain.Criteria;
 import com.shinemuscat.mapper.BoardMapper;
 import com.shinemuscat.mapper.ReplyMapper;
 
@@ -52,9 +53,17 @@ public class BoardServiceImpl implements BoardService {
 		return true;
 	}
 
+//	@Override
+//	public List<BoardVO> getList() throws Exception {
+//			return mapper.getList();
+//	}
+	
 	@Override
-	public List<BoardVO> getList() throws Exception {
-			return mapper.getList();
+	public List<BoardVO> getList(Criteria cri) throws Exception {
+		
+		log.info("get List with criteria: " + cri);
+		
+		return mapper.getListWithPaging(cri);
 	}
 
 }
