@@ -1,168 +1,171 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="../includes/header.jsp"%>
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/dist/css/get.css">
 
-<%@ include file="../includes/header.jsp" %>
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header"><c:out value="${board.title}"/></h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">Board Read Page</div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                 
-                 <div class="form-group">
-                    <label>Bno</label> <input class="form-control" name='bno'
-                    value='<c:out value="${board.bno}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>Title</label> <input class="form-control" name='title'
-                    value='<c:out value="${board.title}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>Text area</label> 
-                    <textarea class="form-control" rows="3" name='content'
-                     readonly="readonly"><c:out value="${board.content}"/></textarea>
-                 </div>
+<!-- Written by 김태연 -->
 
-                 <div class="form-group">
-                    <label>user_id</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.user_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>regdate</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.regdate}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 구분</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmenttype_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 인원</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmentnumber_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>연락 방법</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.contactmethod_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 분야</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.position_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>진행 방식</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.worktype_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.deadline}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>예상 기간</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.duration_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>사용 언어</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <button data-oper='modify' class="btn btn-default">Modify</button>
-               <button data-oper='list' class="btn btn-info">List</button>
-               
-               <form id='operForm' action="/board/modify" method="get">
-                  <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>
-                  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
-                  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
-                  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-               </form>
+<div class="row">
+   <div class="col-lg-12">
+      <h2 class="page-header">
+         <c:out value="${board.title}" />
+      </h2>
+      <div class="register-info" style="font-size: 11pt;">
+         <div style="font-size: 11pt; margin-bottom: 20px; overflow: hidden;">
+            <div style="float: left;">
+               작성자:
+               <c:out value="${board.nickname}" />
+               &nbsp;|&nbsp; 작성일:
+               <fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm" />
             </div>
-            <!-- end panel-body -->
-        </div>
-        <!-- end panel -->
-    </div>
+            <div style="float: right;">
+               조회수:
+               <c:out value="${board.views}" />
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+<div class="form-row">
+   <div class="col-lg-12">
+      <!-- 두 줄로 배치된 폼 -->
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 구분</label> <input class="form-control"
+                  name='recruitmenttype_name'
+                  value='<c:out value="${board.recruitmenttype_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 인원</label> <input class="form-control"
+                  name='recruitmentnumber'
+                  value='<c:out value="${board.recruitmentnumber}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>연락 방법</label> <input class="form-control"
+                  name='contactmethod_name'
+                  value='<c:out value="${board.contactmethod_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>모집 분야</label> <input class="form-control"
+                  name='position_name'
+                  value='<c:out value="${board.position_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
+
+      <!-- 나머지 form-group들도 동일하게 적용 -->
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>진행 방식</label> <input class="form-control"
+                  name='worktype_name'
+                  value='<c:out value="${board.worktype_name}"/>'
+                  readonly="readonly">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label>시작 예정(모집 마감일)</label> <input class="form-control"
+                  name='deadline'
+                  value='<fmt:formatDate value="${board.deadline}" pattern="yy-MM-dd HH:mm" />'
+                  readonly="readonly">
+            </div>
+         </div>
+      </div>
+
+      <!-- Textarea는 일반 텍스트로 표시 -->
+      <div class="row">
+         <div class="col-md-12">
+            <div class="form-group">
+               <h3>본문</h3>
+               <div class="form-control-static">
+                  <c:out value="${board.content}" />
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+      <!-- 버튼 -->
+      <button data-oper='modify' class="btn btn-default">수정하기</button>
+      <button data-oper='list' class="btn btn-info">목록으로</button>
+   </div>
+</div>
+
+<form id='operForm' action="/board/modify" method="get">
+   <input type='hidden' name='bno' id='bno'
+      value='<c:out value="${board.bno}"/>'> <input type='hidden'
+      name='pageNum' value='<c:out value="${cri.pageNum}"/>'> <input
+      type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+   <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
+   <input type='hidden' name='keyword'
+      value='<c:out value="${cri.keyword}"/>'>
+</form>
+<!-- /.row -->
+
 <!-- 댓글 -->
 <div class="row">
-    <div class="col-lg-12">
-         <div class="panel panel-default">
-            <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i> Reply
-            <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
-         </div>
- 
-            <!-- /.panel-heading -->
-	      <div class="panel-body">        
-	      
-	        <ul class="chat">
-	
-	        </ul>
-	        <!-- ./ end ul -->
-	      </div>
-	      <!-- /.panel .chat-panel -->
-	
-		<div class="panel-footer"></div>
-	
-	
-			</div>
-	  </div>
-	  <!-- ./ end row -->
+   <ul class="chat"></ul>
+   <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Reply</label>
-					<input class="form-control" name="reply" value='New Reply!!!'>
-				</div>
-				<div class="form-group">
-					<label>User_id</label>
-					<input class="form-control" name='user_id' value='user_id'>
-				</div>
-				<div class="form-group">
-					<label>Reply Date</label>
-					<input class="form-control" name='replyDate' value=''>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-       			<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-				<button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Reply</label> <input class="form-control" name="reply"
+                  value='New Reply!!!'>
+            </div>
+            <div class="form-group">
+               <label>User_id</label> <input class="form-control" name='user_id'
+                  value='user_id'>
+            </div>
+            <div class="form-group">
+               <label>Reply Date</label> <input class="form-control"
+                  name='replyDate' value=''>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+            <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+            <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+            <button id='modalCloseBtn' type="button" class="btn btn-default"
+               data-dismiss="modal">Close</button>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-      
+
 <script src="/resources/js/reply.js"> </script>
 <script type="text/javascript">
 $(document).ready(function (){
@@ -171,21 +174,21 @@ $(document).ready(function (){
    showList(1);
    function showList(page) {
       replyService.getList({bno:bnoValue, page: page || 1}, function(replyCnt, list) {
-    	  console.log("replyCnt: ", replyCnt);
-	 	  if(page == -1){
-	 	      pageNum = Math.ceil(replyCnt/10.0);
-	 	      showList(pageNum);
-	 	      return;
-	 	    }
-	 	 if (list == null || list.length === 0) {
-	            replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
-	            replyPageFooter.html(""); // 페이지네이션 초기화
-	            return;
-	        }
-	 	 
-	 	  let str = "";
+         console.log("replyCnt: ", replyCnt);
+         if(page == -1){
+             pageNum = Math.ceil(replyCnt/10.0);
+             showList(pageNum);
+             return;
+           }
+        if (list == null || list.length === 0) {
+               replyUL.html("<li class='text-center'>댓글이 없습니다</li>");
+               replyPageFooter.html(""); // 페이지네이션 초기화
+               return;
+           }
+        
+         let str = "";
          
-	 	 for (let i = 0; i < list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             str += `<li class='left clearfix' data-rno='\${list[i].rno}'>
                           <div>
                              <div class='header'>
@@ -211,48 +214,48 @@ $(document).ready(function (){
 
    
    function showReplyPage(replyCnt) {
-	    var endNum = Math.ceil(pageNum / 10.0) * 10;
-	    var startNum = endNum - 9;
+       var endNum = Math.ceil(pageNum / 10.0) * 10;
+       var startNum = endNum - 9;
 
-	    var prev = pageNum > 1; // 이전 버튼 활성화 여부
-	    var next = pageNum * 10 < replyCnt; // 다음 버튼 활성화 여부
+       var prev = pageNum > 1; // 이전 버튼 활성화 여부
+       var next = pageNum * 10 < replyCnt; // 다음 버튼 활성화 여부
 
-	    if(endNum * 10 >= replyCnt){
-	        endNum = Math.ceil(replyCnt/10.0);
-	      }
-	    
-	    var str = `<ul class='pagination pull-right'>`;
-	    if (prev) {
-	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum - 1)+"'>Previous</a></li>";
-	    }
+       if(endNum * 10 >= replyCnt){
+           endNum = Math.ceil(replyCnt/10.0);
+         }
+       
+       var str = `<ul class='pagination pull-right'>`;
+       if (prev) {
+          str+= "<li class='page-item'><a class='page-link' href='"+(pageNum - 1)+"'>Previous</a></li>";
+       }
 
-		for(var i = startNum ; i <= endNum; i++){
-	        var active = pageNum == i? "active":"";
-	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
-	      }
+      for(var i = startNum ; i <= endNum; i++){
+           var active = pageNum == i? "active":"";
+           str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+         }
 
-	    if (next) {
-	    	str+= "<li class='page-item'><a class='page-link' href='"+(pageNum + 1)+"'>Next</a></li>";
-	    }
+       if (next) {
+          str+= "<li class='page-item'><a class='page-link' href='"+(pageNum + 1)+"'>Next</a></li>";
+       }
 
-	    str += `</ul>`;
+       str += `</ul>`;
 
-	    console.log(str);
+       console.log(str);
 
-	    replyPageFooter.html(str);
+       replyPageFooter.html(str);
 
-	    // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
-	    replyPageFooter.off("click").on("click", "li a", function (e) {
-	        e.preventDefault();
-	        console.log("page click");
+       // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
+       replyPageFooter.off("click").on("click", "li a", function (e) {
+           e.preventDefault();
+           console.log("page click");
 
-	        var targetPageNum = $(this).attr("href");
-	        console.log("targetPageNum: " + targetPageNum);
+           var targetPageNum = $(this).attr("href");
+           console.log("targetPageNum: " + targetPageNum);
 
-	        pageNum = parseInt(targetPageNum, 10); // 페이지 번호를 정수로 변환
-	        showList(pageNum);
-	    });
-	}
+           pageNum = parseInt(targetPageNum, 10); // 페이지 번호를 정수로 변환
+           showList(pageNum);
+       });
+   }
  
   
    
@@ -266,8 +269,8 @@ $(document).ready(function (){
    let modalRegisterBtn = $("#modalRegisterBtn");
    
    $("#modalCloseBtn").on("click", function(e){
-   	
-   	modal.modal('hide');
+      
+      modal.modal('hide');
    });
    
    $("#addReplyBtn").on("click", function(e){
@@ -285,76 +288,76 @@ $(document).ready(function (){
    })
    
    modalRegisterBtn.on("click", function (e) {
-		var reply = {
-			reply: modalInputReply.val(),
-			user_id: modalInputUserId.val(),
-			bno: bnoValue,
-		};
+      var reply = {
+         reply: modalInputReply.val(),
+         user_id: modalInputUserId.val(),
+         bno: bnoValue,
+      };
 
-		if (!reply.reply || !reply.user_id) {
-			alert("Reply and User ID are required.");
-			return;
-		}
+      if (!reply.reply || !reply.user_id) {
+         alert("Reply and User ID are required.");
+         return;
+      }
 
-		replyService.add(reply, function (result) {
-			alert(result);
+      replyService.add(reply, function (result) {
+         alert(result);
 
-			modal.find("input").val("");
-			modal.modal("hide");
+         modal.find("input").val("");
+         modal.modal("hide");
 
-			pageNum = 1;
-			showList(pageNum);
-		});
-	});
+         pageNum = 1;
+         showList(pageNum);
+      });
+   });
    
    $(".chat").on("click", "li", function(e){
-	      
-	      var rno = $(this).data("rno");
-	      
-	        replyService.get(rno, function(reply){
-	      
-	        modalInputReply.val(reply.reply);
-	        modalInputUserId.val(reply.user_id).attr("readonly","readonly");
-	        modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
-	        .attr("readonly","readonly");
-	        modal.data("rno", reply.rno);
-	        
-	        modal.find("button[id !='modalCloseBtn']").hide();
-	        modalModBtn.show();
-	        modalRemoveBtn.show();
-	        
-	        $(".modal").modal("show"); 
-	            
-	      });
-	    });
+         
+         var rno = $(this).data("rno");
+         
+           replyService.get(rno, function(reply){
+         
+           modalInputReply.val(reply.reply);
+           modalInputUserId.val(reply.user_id).attr("readonly","readonly");
+           modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
+           .attr("readonly","readonly");
+           modal.data("rno", reply.rno);
+           
+           modal.find("button[id !='modalCloseBtn']").hide();
+           modalModBtn.show();
+           modalRemoveBtn.show();
+           
+           $(".modal").modal("show"); 
+               
+         });
+       });
    modalModBtn.on("click", function(e){
- 	  
-	   	  var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-	   	  
-	   	  replyService.update(reply, function(result){
-	   	        
-	   	    alert(result);
-	   	    modal.modal("hide");
-	   	    showList(pageNum);
-	   	    
-	   	  });
-	   	  
-	   	});
+      
+           var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
+           
+           replyService.update(reply, function(result){
+                 
+             alert(result);
+             modal.modal("hide");
+             showList(pageNum);
+             
+           });
+           
+         });
 
 
-	   	modalRemoveBtn.on("click", function (e){
-	   	  
-	   	  var rno = modal.data("rno");
-	   	  
-	   	  replyService.remove(rno, function(result){
-	   	        
-	   	      alert(result);
-	   	      modal.modal("hide");
-	   	      showList(pageNum);
-	   	      
-	   	  });
-	   	  
-	   	});
+         modalRemoveBtn.on("click", function (e){
+           
+           var rno = modal.data("rno");
+           
+           replyService.remove(rno, function(result){
+                 
+               alert(result);
+               modal.modal("hide");
+               showList(pageNum);
+               
+           });
+           
+         });
 });
 
 $(function(){
@@ -370,5 +373,5 @@ $(function(){
    })
 })
 </script>
-        
-   <%@ include file="../includes/footer.jsp" %>
+
+<%@ include file="../includes/footer.jsp"%>

@@ -7,47 +7,106 @@
 
 	<select id="getList" resultType="BoardVO">
 	<![CDATA[
-	SELECT 
-		b.bno,
+	   SELECT 
+        b.bno,
         b.title,
-        u.nickname,
-        b.deadline,
+        b.content,
+        b.regdate,
+        b.updatedate,
         b.views,
+        b.deadline,
+        
+        b.recruitmenttype_id,
+        b.recruitmentnumber_id,
+        b.position_id,
+        b.techstack_id,
+        b.contactmethod_id,
+        b.worktype_id,
+        b.duration_id,
+        b.user_id,
+        
+        u.nickname AS nickname,
         r.recruitmenttype_name AS recruitmenttype_name,
+        rn.recruitmentnumber AS recruitmentnumber,
+        p.position_name AS position_name,
         t.techstack_name AS techstack_name,
-        p.position_name AS position_name
-    FROM tbl_board b
-    LEFT JOIN recruitment_type r ON b.recruitmenttype_id = r.recruitmenttype_id
-    LEFT JOIN techstack t ON b.techstack_id = t.techstack_id
-    LEFT JOIN position p ON b.position_id = p.position_id
-    LEFT JOIN users u ON b.user_id = u.user_id
+        c.contactmethod_name AS contactmethod_name,
+        w.worktype_name AS worktype_name,
+        d.duration_name AS duration_name
+        
+	    FROM tbl_board b
+	    LEFT JOIN users u ON b.user_id = u.user_id
+	    LEFT JOIN recruitment_type r ON b.recruitmenttype_id = r.recruitmenttype_id
+	    LEFT JOIN recruitmentnumber rn ON b.recruitmentnumber_id = rn.recruitmentnumber_id
+	    LEFT JOIN position p ON b.position_id = p.position_id
+	    LEFT JOIN techstack t ON b.techstack_id = t.techstack_id
+	    LEFT JOIN contactmethod c ON b.contactmethod_id = c.contactmethod_id
+	    LEFT JOIN worktype w ON b.worktype_id = w.worktype_id
+	    LEFT JOIN duration d ON b.duration_id = d.duration_id
+	    WHERE b.bno > 0
+	    ORDER BY b.bno
 	]]>
 	</select>
 
     <!-- 1. 게시글 목록 조회 -->
-    <select id="getList" resultType="BoardVO">
+    <!-- <select id="getList" resultType="BoardVO">
         <![CDATA[
         SELECT * 
         FROM tbl_board 
         WHERE bno > 0
         ORDER BY bno
         ]]>
-    </select>
+    </select> -->
 
     <!-- 2. 페이징 처리된 게시글 목록 조회 -->
     <select id="getListWithPaging" resultType="BoardVO">
-        <![CDATA[
-        SELECT /*+INDEX_DESC(tbl_board pk_board) */
-               rownum rn, bno, title, content, regdate, updatedate, views, deadline, 
-               recruitmenttype_id, recruitmentnumber_id, position_id, techstack_id, 
-               contactmethod_id, worktype_id, duration_id, user_id
-        FROM tbl_board
-        WHERE bno > 0
-        OFFSET ((#{pageNum} -1) * #{amount}) ROWS FETCH FIRST #{amount} ROWS ONLY
-        ]]>
+    <![CDATA[
+    SELECT * 
+    FROM (
+        SELECT 
+            ROWNUM AS rn,
+            b.bno,
+            b.title,
+            b.content,
+            b.regdate,
+            b.updatedate,
+            b.views,
+            b.deadline,
+            
+            b.recruitmenttype_id,
+            b.recruitmentnumber_id,
+            b.position_id,
+            b.techstack_id,
+            b.contactmethod_id,
+            b.worktype_id,
+            b.duration_id,
+            b.user_id,
+            
+            u.nickname AS nickname,
+            r.recruitmenttype_name AS recruitmenttype_name,
+            rn.recruitmentnumber AS recruitmentnumber,
+            p.position_name AS position_name,
+            t.techstack_name AS techstack_name,
+            c.contactmethod_name AS contactmethod_name,
+            w.worktype_name AS worktype_name,
+            d.duration_name AS duration_name
+        FROM tbl_board b
+        LEFT JOIN users u ON b.user_id = u.user_id
+        LEFT JOIN recruitment_type r ON b.recruitmenttype_id = r.recruitmenttype_id
+        LEFT JOIN recruitmentnumber rn ON b.recruitmentnumber_id = rn.recruitmentnumber_id
+        LEFT JOIN position p ON b.position_id = p.position_id
+        LEFT JOIN techstack t ON b.techstack_id = t.techstack_id
+        LEFT JOIN contactmethod c ON b.contactmethod_id = c.contactmethod_id
+        LEFT JOIN worktype w ON b.worktype_id = w.worktype_id
+        LEFT JOIN duration d ON b.duration_id = d.duration_id
+        WHERE b.bno > 0
+        ORDER BY b.bno DESC
+    ) 
+    WHERE rn BETWEEN ((#{pageNum} - 1) * #{amount} + 1) AND (#{pageNum} * #{amount})
+    ]]>
     </select>
 
-    <!-- 3. 게시글 등록 -->
+    <!-- 3. 게시글 등록 (안 씀) -->
     <insert id="insert">
         INSERT INTO tbl_board (bno, title, content, regdate, updatedate, views, deadline,
                                recruitmenttype_id, recruitmentnumber_id, position_id, techstack_id,
@@ -66,17 +125,51 @@
                                recruitmenttype_id, recruitmentnumber_id, position_id, techstack_id,
                                contactmethod_id, worktype_id, duration_id, user_id)
         VALUES (#{bno}, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, 
-                DEFAULT, #{recruitmenttype_id}, #{recruitmentnumber_id}, #{position_id}, #{techstack_id}, 
+                #{deadline}, #{recruitmenttype_id}, #{recruitmentnumber_id}, #{position_id}, #{techstack_id}, 
                 #{contactmethod_id}, #{worktype_id}, #{duration_id}, #{user_id})
     </insert>
 
     <!-- 5. 게시글 조회 -->
-    <select id="read" resultType="BoardVO">
-        SELECT * 
-        FROM tbl_board 
-        WHERE bno = #{bno}
-        ORDER BY bno
-    </select>
+	<select id="read" resultType="BoardVO">
+	<![CDATA[
+	   SELECT 
+	        b.bno,
+	        b.title,
+	        b.content,
+	        b.regdate,
+	        b.updatedate,
+	        b.views,
+	        b.deadline,
+	        b.recruitmenttype_id,
+	        b.recruitmentnumber_id,
+	        b.position_id,
+	        b.techstack_id,
+	        b.contactmethod_id,
+	        b.worktype_id,
+	        b.duration_id,
+	        b.user_id,
+	        
+	        u.nickname AS nickname,
+	        r.recruitmenttype_name AS recruitmenttype_name,
+	        rn.recruitmentnumber AS recruitmentnumber,
+	        p.position_name AS position_name,
+	        t.techstack_name AS techstack_name,
+	        c.contactmethod_name AS contactmethod_name,
+	        w.worktype_name AS worktype_name,
+	        d.duration_name AS duration_name
+	        
+	    FROM tbl_board b
+	    LEFT JOIN users u ON b.user_id = u.user_id
+	    LEFT JOIN recruitment_type r ON b.recruitmenttype_id = r.recruitmenttype_id
+	    LEFT JOIN recruitmentnumber rn ON b.recruitmentnumber_id = rn.recruitmentnumber_id
+	    LEFT JOIN position p ON b.position_id = p.position_id
+	    LEFT JOIN techstack t ON b.techstack_id = t.techstack_id
+	    LEFT JOIN contactmethod c ON b.contactmethod_id = c.contactmethod_id
+	    LEFT JOIN worktype w ON b.worktype_id = w.worktype_id
+	    LEFT JOIN duration d ON b.duration_id = d.duration_id
+	    WHERE b.bno = #{bno}
+	]]>
+	</select>
 	
     <!-- 6. 게시글 삭제 -->
     <delete id="delete">
@@ -84,21 +177,25 @@
         WHERE bno = #{bno}
     </delete>
 
-    <!-- 7. 게시글 수정 -->
-    <update id="update">
-        UPDATE tbl_board
-        SET title = #{title},
-            content = #{content},
-            updateDate = SYSDATE,
-            recruitmenttype_id = #{recruitmenttype_id}, 
-            recruitmentnumber_id = #{recruitmentnumber_id}, 
-            position_id = #{position_id}, 
-            techstack_id = #{techstack_id}, 
-            contactmethod_id = #{contactmethod_id}, 
-            worktype_id = #{worktype_id}, 
-            duration_id = #{duration_id}
-        WHERE bno = #{bno}
-    </update>
+
+	<!-- 7. 게시글 수정 -->
+	<update id="update">
+	    UPDATE tbl_board
+	    SET title = #{title},
+	        content = #{content},
+	        updatedate = SYSDATE,
+	        deadline = #{deadline},
+	        recruitmenttype_id = #{recruitmenttype_id}, 
+	        recruitmentnumber_id = #{recruitmentnumber_id}, 
+	        position_id = #{position_id}, 
+	        techstack_id = #{techstack_id}, 
+	        contactmethod_id = #{contactmethod_id}, 
+	        worktype_id = #{worktype_id}, 
+	        duration_id = #{duration_id},
+	        user_id = #{user_id}
+	    WHERE bno = #{bno}
+	</update>
+
 	
     <!-- 8. 게시글 총 개수 -->
 	<select id="getTotalCount" resultType="int">

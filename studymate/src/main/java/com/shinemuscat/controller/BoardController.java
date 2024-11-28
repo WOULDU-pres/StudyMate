@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shinemuscat.domain.BoardVO;
+import com.shinemuscat.domain.Criteria;
+import com.shinemuscat.service.BoardService;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import com.shinemuscat.domain.BoardVO;
-import com.shinemuscat.service.BoardService;
 
 
 @Controller
@@ -22,12 +24,13 @@ import com.shinemuscat.service.BoardService;
 @AllArgsConstructor
 public class BoardController {
 	private BoardService service;
-	
+
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(Criteria cri, Model model) {
+		
 		try {
-			log.info("list....");
-			model.addAttribute("list", service.getList());
+			log.info("list: " + cri);
+			model.addAttribute("list", service.getList(cri));
 			return "board/list";
 		} catch (Exception e) {
 			e.printStackTrace();

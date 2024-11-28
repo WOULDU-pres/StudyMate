@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.shinemuscat.domain.BoardVO;
+import com.shinemuscat.domain.Criteria;
+import com.shinemuscat.mapper.BoardMapper;
+import com.shinemuscat.mapper.ReplyMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import com.shinemuscat.domain.BoardVO;
-import com.shinemuscat.mapper.BoardMapper;
 
 @Log4j
 @Service
@@ -16,11 +19,13 @@ import com.shinemuscat.mapper.BoardMapper;
 public class BoardServiceImpl implements BoardService {
 
 	public BoardMapper mapper;
+    private final ReplyMapper replyMapper; 
 
 	@Override
 	public void register(BoardVO board) throws Exception {
 		log.info("register....." + board);
 		mapper.insertSelectKey(board);
+//		mapper.insert(board);
 	}
 
 	@Override
@@ -41,13 +46,24 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean remove(Long bno) throws Exception {
 		log.info("modify......" + bno);
+
+        replyMapper.deleteByBno(bno);
+
 		if (mapper.delete(bno) == 0) throw new RuntimeException(bno+"번 게시물이 삭제되지 않음");
 		return true;
 	}
 
+//	@Override
+//	public List<BoardVO> getList() throws Exception {
+//			return mapper.getList();
+//	}
+	
 	@Override
-	public List<BoardVO> getList() throws Exception {
-			return mapper.getList();
+	public List<BoardVO> getList(Criteria cri) throws Exception {
+		
+		log.info("get List with criteria: " + cri);
+		
+		return mapper.getListWithPaging(cri);
 	}
 
 }
