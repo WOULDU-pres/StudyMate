@@ -35,47 +35,47 @@
                  
                  <div class="form-group">
                     <label>regdate</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.regdate}"/>' readonly="readonly">
+                    value='<fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>모집 구분</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmenttype_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.recruitmenttype_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>모집 인원</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmentnumber_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.recruitmentnumber}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>연락 방법</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.contactmethod_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.contactmethod_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>모집 분야</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.position_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.position_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>진행 방식</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.worktype_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.worktype_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.deadline}"/>' readonly="readonly">
+                    value='<fmt:formatDate value="${board.deadline}" pattern="yy-MM-dd HH:mm"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>예상 기간</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.duration_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.duration_name}"/>' readonly="readonly">
                  </div>
                  
                  <div class="form-group">
                     <label>사용 언어</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
+                    value='<c:out value="${board.techstack_name}"/>' readonly="readonly">
                  </div>
                
                <form id='operForm' action="/board/modify" method="get">

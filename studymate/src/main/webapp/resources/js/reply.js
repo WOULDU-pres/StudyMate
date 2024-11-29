@@ -38,7 +38,8 @@ var replyService = (function () {
         });
     }
 
-    function remove(rno, callback, error) {
+    function remove(rno, replyer, callback, error) {
+    console.log(JSON.stringify({rno:replyer})); 
         $.ajax({
             type: "delete",
             url: `/replies/${rno}`,
