@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <%@include file="../includes/header.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/register.css">
 
@@ -10,6 +12,8 @@
     <h1 class="form-title">프로젝트 등록하기</h1>
 
     <form role="form" action="/board/register" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
+    
         <!-- 첫 번째 행: 모집 구분, 모집 인원 -->
         <div class="form-row">
             <div class="form-group">
@@ -122,7 +126,9 @@
         <!-- 작성자 -->
         <div class="form-group">
             <label>작성자</label>
-            <input class="form-control" name="user_id">
+            <input class="form-control" name="user_id"
+            value='<sec:authentication property="principal.username"/>' readonly="readonly">
+            
         </div>
 
         <!-- 버튼 -->

@@ -5,6 +5,7 @@
 <!-- Written by 주현우 -->
 <mapper namespace="com.shinemuscat.mapper.BoardMapper">
 
+	<!-- 1. 게시글 목록 조회 -->
 	<select id="getList" resultType="BoardVO">
 	<![CDATA[
 	   SELECT 

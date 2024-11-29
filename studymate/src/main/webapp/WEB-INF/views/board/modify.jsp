@@ -2,11 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <%@include file="../includes/header.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/register.css">
 <div class="form-container">
     <h1 class="form-title">게시글 수정</h1>
     <form role="form" action="/board/modify" method="post" id="modifyForm">
+    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
+    
         <!-- Hidden inputs for page navigation -->
         <input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}' />" />
         <input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" />
@@ -146,11 +150,21 @@
 
         <!-- Buttons -->
         <div class="form-buttons">
-            <button type="submit" data-oper="modify" class="btn btn-primary">수정</button>
-            <button type="submit" data-oper="remove" class="btn btn-danger">삭제</button>
+			<sec:authentication property="principal" var="pinfo"/>
+			    	
+			    	<sec:authorize access="isAuthenticated()">
+			     	<c:if test="${pinfo.username eq board.user_id}">
+			
+			<button type="submit" data-oper='modify' class="btn btn-default">수정</button>
+			<button type="submit" data-oper='remove' class="btn btn-default">삭제</button>
+			
+			</c:if>
+			</sec:authorize>
+
             <button type="button" data-oper="list" class="btn btn-secondary" id="listButton">목록</button>
         </div>
     </form>
+				
 </div>
 
 <script type="text/javascript">

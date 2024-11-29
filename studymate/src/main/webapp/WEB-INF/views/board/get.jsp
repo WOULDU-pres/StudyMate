@@ -2,9 +2,15 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <%@ include file="../includes/header.jsp"%>
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/dist/css/get.css">
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!-- Written by 김태연 -->
 
@@ -21,6 +27,64 @@
                <c:out value="${board.nickname}" />
                &nbsp;|&nbsp; 작성일:
                <fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm" />
+
+                 <div class="form-group">
+                    <label>user_id</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.user_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>regdate</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.regdate}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 구분</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.recruitmenttype_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 인원</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.recruitmentnumber_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>연락 방법</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.contactmethod_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>모집 분야</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.position_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>진행 방식</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.worktype_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.deadline}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>예상 기간</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.duration_id}"/>' readonly="readonly">
+                 </div>
+                 
+                 <div class="form-group">
+                    <label>사용 언어</label> <input class="form-control" name='user_id'
+                    value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
+                 </div>
+               
+               <form id='operForm' action="/board/modify" method="get">
+                  <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>
+                  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+                  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+                  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
+                  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
+               </form>
             </div>
             <div style="float: right;">
                조회수:
@@ -107,7 +171,12 @@
 
 
       <!-- 버튼 -->
-      <button data-oper='modify' class="btn btn-default">수정하기</button>
+      <sec:authentication property="principal" var="pinfo"/>
+        <sec:authorize access="isAuthenticated()">
+        <c:if test="${pinfo.username eq board.user_id}">
+        <button data-oper='modify' class="btn btn-default">수정하기</button>
+        </c:if>
+        </sec:authorize>
       <button data-oper='list' class="btn btn-info">목록으로</button>
    </div>
 </div>
@@ -124,7 +193,10 @@
 <!-- 댓글 -->
 <div class="row">
    <ul class="chat"></ul>
-   <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
+         <sec:authentication property="principal" var="pinfo"/>
+        <sec:authorize access="isAuthenticated()">
+   		<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
+        </sec:authorize>
 </div>
 
 </div>
@@ -147,6 +219,7 @@
                <label>User_id</label> <input class="form-control" name='user_id'
                   value='user_id'>
             </div>
+            
             <div class="form-group">
                <label>Reply Date</label> <input class="form-control"
                   name='replyDate' value=''>
@@ -287,6 +360,10 @@ $(document).ready(function (){
 
    })
    
+   $(document).ajaxSend(function(e, xhr, options) { 
+        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+      }); 
+   
    modalRegisterBtn.on("click", function (e) {
       var reply = {
          reply: modalInputReply.val(),
@@ -331,47 +408,94 @@ $(document).ready(function (){
          });
        });
    modalModBtn.on("click", function(e){
+ 	  
+		var originalReplyer = modalInputUserId.val();
+		var reply = {
+			      rno:modal.data("rno"), 
+			      reply: modalInputReply.val(),
+			      user_id: originalReplyer};
+	  
+		if(!replyer){
+			 alert("로그인후 수정이 가능합니다.");
+			 modal.modal("hide");
+			 return;
+		}
+
+		console.log("Original Replyer: " + originalReplyer);
+		
+		if(replyer  != originalReplyer){
+			 alert("자신이 작성한 댓글만 수정이 가능합니다.");
+			 modal.modal("hide");
+			 return;
+		}
+		  
+		replyService.update(reply, function(result){
+		  alert(result);
+		  modal.modal("hide");
+		  showList(pageNum);
+		});
+	});
+
+  	modalRemoveBtn.on("click", function (e){
+     	  var rno = modal.data("rno");
+
+     	  console.log("RNO: " + rno);
+     	  console.log("REPLYER: " + replyer);
+     	  
+     	  if(!replyer){
+     		  alert("로그인후 삭제가 가능합니다.");
+     		  modal.modal("hide");
+     		  return;
+     	  }
+     	  
+     	  var originalReplyer = modalInputUserId.val();
+     	  
+     	  console.log("Original Replyer: " + originalReplyer);
+     	  
+     	  if(replyer  != originalReplyer){
+     		  alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+     		  modal.modal("hide");
+     		  return;
+     	  }
+     	  
+     	  replyService.remove(rno, originalReplyer, function(result){
+     	      alert(result);
+     	      modal.modal("hide");
+     	      showList(pageNum);
+     	  });
+     	});
+     	
+      var replyer = null;
       
-           var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-           
-           replyService.update(reply, function(result){
-                 
-             alert(result);
-             modal.modal("hide");
-             showList(pageNum);
-             
-           });
-           
-         });
-
-
-         modalRemoveBtn.on("click", function (e){
-           
-           var rno = modal.data("rno");
-           
-           replyService.remove(rno, function(result){
-                 
-               alert(result);
-               modal.modal("hide");
-               showList(pageNum);
-               
-           });
-           
-         });
-});
-
-$(function(){
-   let operForm = $("#operForm");
-   $("button[data-oper='modify']").on("click", function(e){
-      operForm.attr("action", "/board/modify").submit();
-   })
+      <sec:authorize access="isAuthenticated()">
+      replyer = '<sec:authentication property="principal.username"/>';   
+  	</sec:authorize>
    
-   $("button[data-oper='list']").on("click", function(e){
-      operForm.find("#bno").remove();
-      operForm.attr("action", "/board/list");
-      operForm.submit();
-   })
-})
+      var csrfHeaderName ="${_csrf.headerName}"; 
+      var csrfTokenValue="${_csrf.token}";
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  
+  var operForm = $("#operForm"); 
+  
+  $("button[data-oper='modify']").on("click", function(e){
+    
+    operForm.attr("action","/board/modify").submit();
+    
+  });
+  
+    
+  $("button[data-oper='list']").on("click", function(e){
+    
+    operForm.find("#bno").remove();
+    operForm.attr("action","/board/list")
+    operForm.submit();
+    
+  });  
+});
 </script>
 
 <%@ include file="../includes/footer.jsp"%>
