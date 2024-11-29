@@ -178,6 +178,7 @@
 	
     <!-- 6. 게시글 삭제 -->
     <delete id="delete">
+    
         DELETE FROM tbl_board 
         WHERE bno = #{bno}
     </delete>

@@ -46,8 +46,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean remove(Long bno) throws Exception {
 		log.info("modify......" + bno);
-
-        replyMapper.deleteByBno(bno);
+		/*
+		 * replyMapper.deleteByBno(bno);
+		 */
 
 		if (mapper.delete(bno) == 0) throw new RuntimeException(bno+"번 게시물이 삭제되지 않음");
 		return true;

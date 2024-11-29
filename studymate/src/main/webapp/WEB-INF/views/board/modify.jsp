@@ -152,8 +152,8 @@
         <div class="form-buttons">
 			<sec:authentication property="principal" var="pinfo"/>
 			    	
-			    	<sec:authorize access="isAuthenticated()">
-			     	<c:if test="${pinfo.username eq board.user_id}">
+	    	<sec:authorize access="isAuthenticated()">
+	     	<c:if test="${pinfo.username eq board.user_id}">
 			
 			<button type="submit" data-oper='modify' class="btn btn-default">수정</button>
 			<button type="submit" data-oper='remove' class="btn btn-default">삭제</button>
@@ -182,10 +182,6 @@
          console.log(operation);
          
          if(operation === 'remove'){
-
-        	 BoardVO dbBoard = service.get(bno);
-        	 log.info("Board user_id: " + dbBoard.getUser_id());
-
             formObj.attr("action", "/board/remove");
          }else if(operation === 'list'){
             //move to list
