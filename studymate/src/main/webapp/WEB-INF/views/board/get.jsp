@@ -85,17 +85,18 @@
                     value='<c:out value="${board.techstack_id}"/>' readonly="readonly">
                  </div>
                  
-				<sec:authentication property="principal" var="pinfo"/>
-				
-				        <sec:authorize access="isAuthenticated()">
-				
-				        <c:if test="${pinfo.username eq board.user_id}">
-				        
-				        <button data-oper='modify' class="btn btn-default">Modify</button>
-				        
-				        </c:if>
-				        </sec:authorize>
-                       <button data-oper='list' class="btn btn-info">List</button>
+		        <sec:authentication property="principal" var="pinfo"/>
+		
+		        <sec:authorize access="isAuthenticated()">
+		
+		        <c:if test="${pinfo.username eq board.user_id}">
+		        
+		        <button data-oper='modify' class="btn btn-default">Modify</button>
+		        
+		        </c:if>
+		        </sec:authorize>
+                
+                <button data-oper='list' class="btn btn-info">List</button>
                
                <form id='operForm' action="/board/modify" method="get">
                   <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>
@@ -294,6 +295,10 @@ $(document).ready(function (){
 
    })
    
+   $(document).ajaxSend(function(e, xhr, options) { 
+        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+      }); 
+   
    modalRegisterBtn.on("click", function (e) {
 		var reply = {
 			reply: modalInputReply.val(),
@@ -339,46 +344,93 @@ $(document).ready(function (){
 	    });
    modalModBtn.on("click", function(e){
  	  
-	   	  var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-	   	  
-	   	  replyService.update(reply, function(result){
-	   	        
-	   	    alert(result);
-	   	    modal.modal("hide");
-	   	    showList(pageNum);
-	   	    
-	   	  });
-	   	  
-	   	});
+		var originalReplyer = modalInputUserId.val();
+		var reply = {
+			      rno:modal.data("rno"), 
+			      reply: modalInputReply.val(),
+			      user_id: originalReplyer};
+	  
+		if(!replyer){
+			 alert("로그인후 수정이 가능합니다.");
+			 modal.modal("hide");
+			 return;
+		}
 
+		console.log("Original Replyer: " + originalReplyer);
+		
+		if(replyer  != originalReplyer){
+			 alert("자신이 작성한 댓글만 수정이 가능합니다.");
+			 modal.modal("hide");
+			 return;
+		}
+		  
+		replyService.update(reply, function(result){
+		  alert(result);
+		  modal.modal("hide");
+		  showList(pageNum);
+		});
+	});
 
-	   	modalRemoveBtn.on("click", function (e){
-	   	  
-	   	  var rno = modal.data("rno");
-	   	  
-	   	  replyService.remove(rno, function(result){
-	   	        
-	   	      alert(result);
-	   	      modal.modal("hide");
-	   	      showList(pageNum);
-	   	      
-	   	  });
-	   	  
-	   	});
-});
+  	modalRemoveBtn.on("click", function (e){
+     	  var rno = modal.data("rno");
 
-$(function(){
-   let operForm = $("#operForm");
-   $("button[data-oper='modify']").on("click", function(e){
-      operForm.attr("action", "/board/modify").submit();
-   })
+     	  console.log("RNO: " + rno);
+     	  console.log("REPLYER: " + replyer);
+     	  
+     	  if(!replyer){
+     		  alert("로그인후 삭제가 가능합니다.");
+     		  modal.modal("hide");
+     		  return;
+     	  }
+     	  
+     	  var originalReplyer = modalInputUserId.val();
+     	  
+     	  console.log("Original Replyer: " + originalReplyer);
+     	  
+     	  if(replyer  != originalReplyer){
+     		  alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+     		  modal.modal("hide");
+     		  return;
+     	  }
+     	  
+     	  replyService.remove(rno, originalReplyer, function(result){
+     	      alert(result);
+     	      modal.modal("hide");
+     	      showList(pageNum);
+     	  });
+     	});
+     	
+      var replyer = null;
+      
+      <sec:authorize access="isAuthenticated()">
+      replyer = '<sec:authentication property="principal.username"/>';   
+  	</sec:authorize>
    
-   $("button[data-oper='list']").on("click", function(e){
-      operForm.find("#bno").remove();
-      operForm.attr("action", "/board/list");
-      operForm.submit();
-   })
-})
+      var csrfHeaderName ="${_csrf.headerName}"; 
+      var csrfTokenValue="${_csrf.token}";
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  
+  var operForm = $("#operForm"); 
+  
+  $("button[data-oper='modify']").on("click", function(e){
+    
+    operForm.attr("action","/board/modify").submit();
+    
+  });
+  
+    
+  $("button[data-oper='list']").on("click", function(e){
+    
+    operForm.find("#bno").remove();
+    operForm.attr("action","/board/list")
+    operForm.submit();
+    
+  });  
+});
 </script>
         
    <%@ include file="../includes/footer.jsp" %>
