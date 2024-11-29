@@ -68,7 +68,17 @@
     background-color: #f7f7f7;
 }
 
-/* 알림 아이콘 스타일 */
+.auth-btn {
+    background-color: white;
+    color: #2E3A59;
+    border: 1px solid #ddd;
+}
+
+.auth-btn:hover {
+    background-color: #f7f7f7;
+}
+
+/* 알림 아이콘 스타일
 .notification {
     position: relative;
     margin-right: 20px;
@@ -97,13 +107,13 @@
     align-items: center;
 }
 
-/* 프로필 아이콘 스타일 */
+프로필 아이콘 스타일
 .profile-icon {
     font-size: 24px;    
     font-style: normal;
     color: #2E3A59;
     cursor: pointer;
-}
+} */
 
 /* 메인 페이지 이동 링크 */
 .brand-link {

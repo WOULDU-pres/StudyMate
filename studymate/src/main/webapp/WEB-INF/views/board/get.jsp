@@ -20,71 +20,13 @@
       <h2 class="page-header">
          <c:out value="${board.title}" />
       </h2>
-      <div class="register-info" style="font-size: 11pt;">
+         <div class="register-info" style="font-size: 11pt;">
          <div style="font-size: 11pt; margin-bottom: 20px; overflow: hidden;">
             <div style="float: left;">
                작성자:
                <c:out value="${board.nickname}" />
                &nbsp;|&nbsp; 작성일:
                <fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm" />
-
-                 <div class="form-group">
-                    <label>user_id</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.user_id}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>regdate</label> <input class="form-control" name='user_id'
-                    value='<fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd HH:mm"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 구분</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmenttype_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 인원</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.recruitmentnumber}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>연락 방법</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.contactmethod_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>모집 분야</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.position_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>진행 방식</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.worktype_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>시작 예정(모집 마감일)</label> <input class="form-control" name='user_id'
-                    value='<fmt:formatDate value="${board.deadline}" pattern="yy-MM-dd HH:mm"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>예상 기간</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.duration_name}"/>' readonly="readonly">
-                 </div>
-                 
-                 <div class="form-group">
-                    <label>사용 언어</label> <input class="form-control" name='user_id'
-                    value='<c:out value="${board.techstack_name}"/>' readonly="readonly">
-                 </div>
-               
-               <form id='operForm' action="/board/modify" method="get">
-                  <input type='hidden' name='bno' id='bno' value='<c:out value="${board.bno}"/>'>
-                  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
-                  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>
-                  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-               </form>
             </div>
             <div style="float: right;">
                조회수:
@@ -346,16 +288,14 @@ $(document).ready(function (){
       modal.modal('hide');
    });
    
-   
    $("#addReplyBtn").on("click", function(e){
      
      modal.find("input").val("");
-     modal.find("input[name='user_id']").val(replyer);
      modalInputReplyDate.closest("div").hide();
      modal.find("button[id !='modalCloseBtn']").hide();
      
-     modalInputUserId.attr("readonly", true);
-
+     modalInputUserId.removeAttr("readonly");
+     
      modalRegisterBtn.show();
      
      $(".modal").modal("show");

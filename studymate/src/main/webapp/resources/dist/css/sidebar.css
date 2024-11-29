@@ -5,7 +5,7 @@
 /* 전체 사이드바 스타일 */
 .sidebar {
    top: 40px;
-    height: 200vh;
+    height: 120vh;
     background-color: #F8F9FA; /* 밝은 배경 */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 오른쪽 그림자 */
     border-radius: 20px; /* 둥근 모서리 */

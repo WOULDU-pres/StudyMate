@@ -182,6 +182,10 @@
          console.log(operation);
          
          if(operation === 'remove'){
+
+        	 BoardVO dbBoard = service.get(bno);
+        	 log.info("Board user_id: " + dbBoard.getUser_id());
+
             formObj.attr("action", "/board/remove");
          }else if(operation === 'list'){
             //move to list

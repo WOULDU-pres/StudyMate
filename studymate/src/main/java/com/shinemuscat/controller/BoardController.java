@@ -97,7 +97,7 @@ public class BoardController {
 		}
 	}
 	
-	@PreAuthorize("principal.username == #board.user_id")
+	@PreAuthorize("principal.username == #user_id")
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		try {
