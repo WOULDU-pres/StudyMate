@@ -291,10 +291,9 @@ $(document).ready(function (){
    $("#addReplyBtn").on("click", function(e){
      
      modal.find("input").val("");
+     modal.find("input[name='user_id']").val(replyer).attr("readonly", true);
      modalInputReplyDate.closest("div").hide();
      modal.find("button[id !='modalCloseBtn']").hide();
-     
-     modalInputUserId.removeAttr("readonly");
      
      modalRegisterBtn.show();
      
