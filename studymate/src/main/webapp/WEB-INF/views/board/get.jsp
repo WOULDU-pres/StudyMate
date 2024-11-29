@@ -346,14 +346,16 @@ $(document).ready(function (){
       modal.modal('hide');
    });
    
+   
    $("#addReplyBtn").on("click", function(e){
      
      modal.find("input").val("");
+     modal.find("input[name='user_id']").val(replyer);
      modalInputReplyDate.closest("div").hide();
      modal.find("button[id !='modalCloseBtn']").hide();
      
-     modalInputUserId.removeAttr("readonly");
-     
+     modalInputUserId.attr("readonly", true);
+
      modalRegisterBtn.show();
      
      $(".modal").modal("show");
