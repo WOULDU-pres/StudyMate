@@ -139,6 +139,7 @@
         <sec:authorize access="isAuthenticated()">
    		<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
         </sec:authorize>
+        <div class="panel-footer"></div>
 </div>
 
 </div>
@@ -258,6 +259,8 @@ $(document).ready(function (){
        console.log(str);
 
        replyPageFooter.html(str);
+       console.log("Pagination Footer Exists:", replyPageFooter.length > 0);
+
 
        // 이벤트 중복 방지를 위해 기존 이벤트 제거 후 다시 등록
        replyPageFooter.off("click").on("click", "li a", function (e) {
